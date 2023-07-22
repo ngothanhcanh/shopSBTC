@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\map;
+
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -88,8 +91,8 @@ if (isset($_GET['pid'])) {
         </div>
         <div class="buttons">
             <button id="prev">
-                << /button>
-                    <button id="next">></button>
+            </button>
+            <button id="next">></button>
         </div>
         <ul class="dots">
             <li class="active"></li>
@@ -240,31 +243,22 @@ if (isset($_GET['pid'])) {
 
     <div class="container">
         <div class="tab_box">
+            <?php $select_product_type = mysqli_query($conn, "SELECT type_product From products");
+            if (mysqli_num_rows($select_product_type) > 0) {
+                while ($fetch_product_type = mysqli_fetch_assoc($select_product_type)) {
+            ?>
+                    <button class="tab_btn active_product" value="<?= $fetch_product_type['type_product'] ?>"><?= $fetch_product_type['type_product'] ?></button>
+            <?php
 
-            <button class="tab_btn active_product">Home</button>
-
+                }
+            }
+            ?>
             <div class="linee"></div>
         </div>
         <div class="content_box">
-            <div class="content active_product">
-                <li class="card">
-                    <a class="fa-regular fa-heart fav"></a>
-                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
-                    <h2>Blanche Pearson Blanche Pearson Blanche Pearson Blanche Pearson</h2>
-                    <p>120$</p>
-                    <button class="buttonn">
-                        <span>Add to cart</span>
-                        <div class="cart">
-                            <svg viewBox="0 0 36 26">
-                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-                            </svg>
-                        </div>
-                    </button>
-                </li>
+            <div id="contenta" class="content active_product">
             </div>
         </div>
-
         <!-- Loại sản phẩm (Tab_Horizontal)  -->
 
         <!-- <-?php include 'homeshop.php';  ?> -->
@@ -272,50 +266,81 @@ if (isset($_GET['pid'])) {
 
         <script src="./script2.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+    $(document).on('click', '.tab_btn', function() {
+        var btnval = $(this).val();
+
+        // Tạo object data để gửi qua Ajax request
+        var data = {
+            buttonValue: btnval
+        };
+        $.ajax({
+            url: 'http://localhost/shop/webbanhang/product.php',
+            type: 'POST',
+            dataType: 'html',
+            data: data,
+            success: function(response) {
+                console.log(data);
+                console.log(response); // Xem dữ liệu phản hồi
+                $('#contenta').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.log(xhr.responseText); // Xem dữ liệu phản hồi từ server khi có lỗi
+                console.log('Lỗi khi gửi yêu cầu AJAX:', error);
+            }
+        })
+    });
+</script>
         <script>
             AOS.init();
         </script>
         <script>
-         // Auto Slick slider
-let slider = document.querySelector('.slider .list');
-let items = document.querySelectorAll('.slider .list .item');
-let next = document.getElementById('next');
-let prev = document.getElementById('prev');
-let dots = document.querySelectorAll('.slider .dots li');
+            // Auto Slick slider
+            let slider = document.querySelector('.slider .list');
+            let items = document.querySelectorAll('.slider .list .item');
+            let next = document.getElementById('next');
+            let prev = document.getElementById('prev');
+            let dots = document.querySelectorAll('.slider .dots li');
 
-let lengthItems = items.length - 1;
-let active = 0;
-next.onclick = function(){
-    active = active + 1 <= lengthItems ? active + 1 : 0;
-    reloadSlider();
-}
-prev.onclick = function(){
-    active = active - 1 >= 0 ? active - 1 : lengthItems;
-    reloadSlider();
-}
-let refreshInterval = setInterval(()=> {next.click()}, 3000);
-function reloadSlider(){
-    slider.style.left = -items[active].offsetLeft + 'px';
-    // 
-    let last_active_dot = document.querySelector('.slider .dots li.active');
-    last_active_dot.classList.remove('active');
-    dots[active].classList.add('active');
+            let lengthItems = items.length - 1;
+            let active = 0;
+            next.onclick = function() {
+                active = active + 1 <= lengthItems ? active + 1 : 0;
+                reloadSlider();
+            }
+            prev.onclick = function() {
+                active = active - 1 >= 0 ? active - 1 : lengthItems;
+                reloadSlider();
+            }
+            let refreshInterval = setInterval(() => {
+                next.click()
+            }, 3000);
 
-    clearInterval(refreshInterval);
-    refreshInterval = setInterval(()=> {next.click()}, 3000);   
-}
+            function reloadSlider() {
+                slider.style.left = -items[active].offsetLeft + 'px';
+                // 
+                let last_active_dot = document.querySelector('.slider .dots li.active');
+                last_active_dot.classList.remove('active');
+                dots[active].classList.add('active');
 
-dots.forEach((li, key) => {
-    li.addEventListener('click', ()=>{
-         active = key;
-         reloadSlider();
-    })
-})
-window.onresize = function(event) {
-    reloadSlider();
-};
-//End Auto slick slider
-    </script>
+                clearInterval(refreshInterval);
+                refreshInterval = setInterval(() => {
+                    next.click()
+                }, 3000);
+            }
+
+            dots.forEach((li, key) => {
+                li.addEventListener('click', () => {
+                    active = key;
+                    reloadSlider();
+                })
+            })
+            window.onresize = function(event) {
+                reloadSlider();
+            };
+            //End Auto slick slider
+        </script>
         <script>
             const wrapper = document.querySelector(".wrapper");
             const carousel = document.querySelector(".carousel");
@@ -441,8 +466,7 @@ window.onresize = function(event) {
 
             })
         </script>
-
-        <?php include 'footer.php';  ?>
+        <div class="line3"></div>
 </body>
 
 </html>
