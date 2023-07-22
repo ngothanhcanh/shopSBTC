@@ -1848,9 +1848,7 @@ z-index: 100;
             box-sizing: inherit;
   }
   
-  .content{
-    display: flex;
-  }
+ 
 
   /* Add to cart */
  
@@ -1859,50 +1857,57 @@ z-index: 100;
 
 /* Loại sản phẩm */
 .container{
-    margin-bottom: 1000px;
+    margin-bottom: 200px;
     width:100%;
     background-color: white;
-    padding: 30px;
+    padding: 0px;
     border-radius: 20px;
 }
 .tab_box{
     position: relative;
     width: 100%;
-
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
-    border-bottom: 2px solid rgba(229,229,229);
+    
 }
 .tab_box .tab_btn{
     font-size: 18px;
     font-weight: 600;
+    margin: 10px;
     color: #919191;
     background:none;
     border: none;
     padding: 18px;
     cursor: pointer;
+    border-bottom: 3px solid transparent;
 }
 .tab_box .tab_btn.active_product{
     color: #7360ff;
+    border-bottom-color: #7360ff;
 }
 .content_box{
-    padding: 20px;
+    padding: 0px;
+    margin-top: 20px;
 }
 .content_box .content{
-    display: none;
-
+        display: none;
 }
 @keyframes moving{
     from{transform: translate(50px); opacity: 0;}
     to{transform: translate(0px); opacity: 1;}
 }
-.content_box .content.active_product{
-    display: flex;
-    justify-content: center;
+
+.content.active_product{
+    margin-right: 60px;
+    margin-left: 60px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    column-gap: 10px;
 }
 
-.linee{
+
+/* .linee{
     position: absolute;
     top: 61px;
     left: 135px;
@@ -1911,26 +1916,25 @@ z-index: 100;
     background-color:#7360ff ;
     border-radius: 10px;
     transition: .3s ease-in-out;
-}
-.content{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    column-gap: 10px;
-}
-.content li{
+} */
+
+.content li {
     list-style: none;
     position: relative;
     scroll-snap-align: start;
-    height: 250px;
+    height: 350px;
     list-style: none;
     background: #fff;
     cursor: pointer;
     padding-bottom: 15px;
     flex-direction: column;
     border-radius: 8px;
-    /* Bỏ thuộc tính display: inline-block; và sử dụng display: inline-flex; thay thế */
-    text-align: center
+    display: flex; /* Thêm thuộc tính display flex */
+    align-items: center; /* Căn giữa các phần tử theo chiều dọc */
+    justify-content: center; /* Căn giữa các phần tử theo chiều ngang */
+    text-align: center;
 }
+
 
 .content li h2{
     font-family: 'Open Sans', sans-serif;
@@ -2084,3 +2088,4 @@ p{
 /* end main shop */
 
 /* end canh */
+

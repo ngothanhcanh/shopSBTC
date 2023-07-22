@@ -88,7 +88,7 @@ if (isset($_GET['pid'])) {
         </div>
         <div class="buttons">
             <button id="prev">
-                << /button>
+                <</button>
                     <button id="next">></button>
         </div>
         <ul class="dots">
@@ -240,13 +240,116 @@ if (isset($_GET['pid'])) {
 
     <div class="container">
         <div class="tab_box">
-
-            <button class="tab_btn active_product">Home</button>
+    
+            <button class="tab_btn active_product">Áo</button>
+            <button class="tab_btn ">Quần</button>
 
             <div class="linee"></div>
         </div>
         <div class="content_box">
             <div class="content active_product">
+            
+                <li class="card">
+                    <a class="fa-regular fa-heart fav"></a>
+                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
+                    <h2>Blanche Pearson Blanche Pearson Blanche Pearson Blanche Pearson</h2>
+                    <p>120$</p>
+                    <button class="buttonn">
+                        <span>Add to cart</span>
+                        <div class="cart">
+                            <svg viewBox="0 0 36 26">
+                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+        </li>
+               
+                <li class="card">
+                    <a class="fa-regular fa-heart fav"></a>
+                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
+                    <h2>Blanche Pearson Blanche Pearson Blanche Pearson Blanche Pearson</h2>
+                    <p>120$</p>
+                    <button class="buttonn">
+                        <span>Add to cart</span>
+                        <div class="cart">
+                            <svg viewBox="0 0 36 26">
+                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+                </li>
+               
+                <li class="card">
+                    <a class="fa-regular fa-heart fav"></a>
+                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
+                    <h2>Blanche Pearson Blanche Pearson Blanche Pearson Blanche Pearson</h2>
+                    <p>120$</p>
+                    <button class="buttonn">
+                        <span>Add to cart</span>
+                        <div class="cart">
+                            <svg viewBox="0 0 36 26">
+                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                         
+                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+                </li>
+               
+                <li class="card">
+                    <a class="fa-regular fa-heart fav"></a>
+                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
+                    <h2>Blanche Pearson Blanche Pearson Blanche Pearson Blanche Pearson</h2>
+                    <p>120$</p>
+                    <button class="buttonn">
+                        <span>Add to cart</span>
+                        <div class="cart">
+                            <svg viewBox="0 0 36 26">
+                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+                </li>
+               
+                <li class="card">
+                    <a class="fa-regular fa-heart fav"></a>
+                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
+                    <h2>Blanche Pearson Blanche Pearson Blanche Pearson Blanche Pearson</h2>
+                    <p>120$</p>
+                    <button class="buttonn">
+                        <span>Add to cart</span>
+                        <div class="cart">
+                            <svg viewBox="0 0 36 26">
+                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+                </li>
+               
+                <li class="card">
+                    <a class="fa-regular fa-heart fav"></a>
+                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
+                    <h2>Blanche Pearson Blanche Pearson Blanche Pearson Blanche Pearson</h2>
+                    <p>120$</p>
+                    <button class="buttonn">
+                        <span>Add to cart</span>
+                        <div class="cart">
+                            <svg viewBox="0 0 36 26">
+                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+                </li>
+           
+            </div>
+        </div>
+        <div class="content_box">
+            <div class="content">
                 <li class="card">
                     <a class="fa-regular fa-heart fav"></a>
                     <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
@@ -264,7 +367,7 @@ if (isset($_GET['pid'])) {
                 </li>
             </div>
         </div>
-
+</div>
         <!-- Loại sản phẩm (Tab_Horizontal)  -->
 
         <!-- <-?php include 'homeshop.php';  ?> -->
@@ -429,9 +532,7 @@ window.onresize = function(event) {
                     });
                     tab.classList.add('active_product');
 
-                    var line = document.querySelector('.linee');
-                    line.style.width = e.target.offsetWidth + "px";
-                    line.style.left = e.target.offsetLeft + "px";
+                  
 
                     all_content.forEach(content => {
                         content.classList.remove('active_product')
