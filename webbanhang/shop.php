@@ -103,7 +103,7 @@ if (isset($_POST['add_to_cart'])) {
             <input class="timkiem" type="text" name="" placeholder="Tìm kiếm sản phẩm">
             <button class="btntimkiem"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-    <div class="content">
+    <div class="contentt">
         <section class="content-shop">
             <div class="hotline">
                 <img src="img/delivery-man.png" alt="">
@@ -112,7 +112,7 @@ if (isset($_POST['add_to_cart'])) {
                 <p>Giao hàng sieu tốc</p>
                 </div>
             </div>
-            <div class="contaner">
+            <div class="contaner-shop">
                 <div class="title-bread">Sản Phẩm</div>
                 <ul class="breadcrumd">
                     <li class="home">
