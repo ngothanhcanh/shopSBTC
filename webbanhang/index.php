@@ -1,7 +1,4 @@
 <?php
-
-use function PHPSTORM_META\map;
-
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -91,8 +88,8 @@ if (isset($_GET['pid'])) {
         </div>
         <div class="buttons">
             <button id="prev">
-            </button>
-            <button id="next">></button>
+                </button>
+                    <button id="next"></button>
         </div>
         <ul class="dots">
             <li class="active"></li>
@@ -243,11 +240,11 @@ if (isset($_GET['pid'])) {
 
     <div class="container">
         <div class="tab_box">
-            <?php $select_product_type = mysqli_query($conn, "SELECT type_product From products");
-            if (mysqli_num_rows($select_product_type) > 0) {
-                while ($fetch_product_type = mysqli_fetch_assoc($select_product_type)) {
+            <?php $select_menu = mysqli_query($conn, "SELECT type_product From menu_product");
+            if (mysqli_num_rows($select_menu) > 0) {
+                while ($fetch_menu = mysqli_fetch_assoc($select_menu)) {
             ?>
-                    <button class="tab_btn active_product" value="<?= $fetch_product_type['type_product'] ?>"><?= $fetch_product_type['type_product'] ?></button>
+                    <button id="btn-menus" class="tab_btn active_product" value="<?= $fetch_menu['type_product'] ?>"><?= $fetch_menu['type_product'] ?></button>
             <?php
 
                 }
@@ -257,20 +254,63 @@ if (isset($_GET['pid'])) {
         </div>
         <div class="content_box">
             <div id="contenta" class="content active_product">
+    <?php  $select_all_typeproduct = mysqli_query($conn, "SELECT * From `products` Where type_product='quần áo'");
+    if(mysqli_num_rows($select_all_typeproduct) > 0){
+        $html = ''; // Biến chứa dữ liệu HTML
+        while($fetch_all_typeproduct = mysqli_fetch_assoc($select_all_typeproduct))
+        { ?>
+            <li class="card">
+                    <a class="fa-regular fa-heart fav"></a>
+                    <div class="img"><img src="image/<?=$fetch_all_typeproduct['image']?>" alt="img" draggable="false"></div>
+                    <h2><?=$fetch_all_typeproduct['product_detail']?></h2>
+                    <p><?=$fetch_all_typeproduct['new_price']?>$</p>
+                    <button class="buttonn">
+                        <span>Add to cart</span>
+                        <div class="cart">
+                            <svg viewBox="0 0 36 26">
+                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                            </svg>
+                        </div>
+                    </button>
+                </li>
+                <?php
+           }
+         }
+            ?>
             </div>
         </div>
         <!-- Loại sản phẩm (Tab_Horizontal)  -->
-
         <!-- <-?php include 'homeshop.php';  ?> -->
-
-
         <script src="./script2.js"></script>
         <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script>
-    $(document).on('click', '.tab_btn', function() {
-        var btnval = $(this).val();
+   // Xử lý sự kiện khi click vào div có class "tab_box"
+         // Xử lý sự kiện khi click vào các tab
+         const tabs = document.querySelectorAll('.tab_btn');
+        const all_content = document.querySelectorAll('.content');
 
+        tabs.forEach((tab, index) => {
+            tab.addEventListener('click', (e) => {
+                tabs.forEach(tab => {
+                    tab.classList.remove('active_product')
+                });
+                tab.classList.add('active_product');
+
+                // Kiểm tra xem index có nằm trong phạm vi hợp lệ của all_content hay không
+                if (index >= 0 && index < all_content.length) {
+                    all_content.forEach(content => {
+                        content.classList.remove('active_product')
+                    });
+                    all_content[index].classList.add('active_product');
+                }
+            })
+        });
+
+    // Xử lý sự kiện khi click vào nút có id="btn-menus"
+    $(document).on('click', '#btn-menus', function() {
+        var btnval = $(this).val();
         // Tạo object data để gửi qua Ajax request
         var data = {
             buttonValue: btnval
@@ -283,6 +323,7 @@ if (isset($_GET['pid'])) {
             success: function(response) {
                 console.log(data);
                 console.log(response); // Xem dữ liệu phản hồi
+                $('#contenta').empty();
                 $('#contenta').html(response);
             },
             error: function(xhr, status, error) {
@@ -443,29 +484,7 @@ if (isset($_GET['pid'])) {
                 e.preventDefault();
             }));
         </script>
-        <script>
-            const tabs = document.querySelectorAll('.tab_btn');
-            const all_content = document.querySelectorAll('.content');
-
-            tabs.forEach((tab, index) => {
-                tab.addEventListener('click', (e) => {
-                    tabs.forEach(tab => {
-                        tab.classList.remove('active_product')
-                    });
-                    tab.classList.add('active_product');
-
-                    var line = document.querySelector('.linee');
-                    line.style.width = e.target.offsetWidth + "px";
-                    line.style.left = e.target.offsetLeft + "px";
-
-                    all_content.forEach(content => {
-                        content.classList.remove('active_product')
-                    });
-                    all_content[index].classList.add('active_product')
-                })
-
-            })
-        </script>
+       
         <div class="line3"></div>
 </body>
 
