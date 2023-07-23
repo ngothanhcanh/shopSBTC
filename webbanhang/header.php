@@ -19,7 +19,7 @@
             <a href="about.php">about us</a>
             <a href="shop.php">shop</a>
             <a href="order.php">order</a>
-            <a href="contract.php">contract</a>
+            <a href="contract.php">contact</a>
         
         </nav>
         <div class="icons">

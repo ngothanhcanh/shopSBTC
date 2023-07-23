@@ -534,7 +534,7 @@ header .user-box{
 .discover .detail p{
     color: #555;
     font-size: 16px;
-    margin-bottom: 1rem;
+   
 }
 .discover .detail span{
     color: var(--orange);
@@ -847,7 +847,7 @@ header .user-box{
 
 /* footer */
 footer{
-    background: var(--orange);
+ 
     width: 100%;
     margin-top: -3.5rem;
     position: relative;
@@ -856,10 +856,10 @@ footer{
 footer::before{
     position:absolute;
     content: '';
-    background-image: url('img/hex.png');
     background-repeat: no-repeat;
     top: 0;
     left: 0;
+  
     opacity: .2;
     width: 100%;
     height: 100%;
@@ -1423,6 +1423,10 @@ z-index: 100;
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 0.3s ease;
+}
+.main_img:hover{
+    transform: translateY(-4px);
 }
 .card_trust{
     width: 220px;
@@ -1508,6 +1512,7 @@ z-index: 100;
     scroll-snap-align: start;
     display: inline-flex;
     height: 350px;
+ 
     list-style: none;
     background: #fff;
     cursor: pointer;
@@ -1520,7 +1525,7 @@ z-index: 100;
     text-align: center;
   }
   .carousel .card .img {
-  
+    
   }
   .carousel{
     padding-top: 10px;
@@ -1574,6 +1579,7 @@ z-index: 100;
   }
   .title_selling{
     margin-left: 210px;
+    margin-right: 20px;
   }
   .title_seeall{
     cursor: pointer;
@@ -1871,6 +1877,7 @@ z-index: 100;
     
 }
 .tab_box .tab_btn{
+    font-family: 'Open Sans', sans-serif;
     font-size: 18px;
     font-weight: 600;
     margin: 10px;
@@ -1880,6 +1887,7 @@ z-index: 100;
     padding: 18px;
     cursor: pointer;
     border-bottom: 3px solid transparent;
+
 }
 .tab_box .tab_btn.active_product{
     color: #7360ff;
@@ -1888,6 +1896,7 @@ z-index: 100;
 .content_box{
     padding: 0px;
     margin-top: 20px;
+    width: 100%;
 }
 .content_box .content{
         display: none;
@@ -1902,7 +1911,7 @@ z-index: 100;
     margin-left: 60px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    column-gap: 10px;
+    gap: 10px;
 }
 
 
@@ -2087,4 +2096,387 @@ p{
 /* end main shop */
 
 /* end canh */
+
+/* discount thang */
+.container_discount{
+    margin-top: -100px;
+    height: 300px;
+    margin-left: 60px;
+    margin-right: 60px;
+    border-radius: 10px;
+    background: #ffe6cc;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+ 
+}
+
+
+.img_discount img {
+    max-width: 100%; /* Chiều rộng tối đa của hình ảnh là 100% của div */
+    max-height: 100%; /* Chiều cao tối đa của hình ảnh là 100% của div */
+    display: block; /* Loại bỏ khoảng trống dưới hình ảnh nếu có */
+    margin: auto; /* Căn giữa hình ảnh trong div */
+}
+#see_discount1{
+    font-family: 'Open Sans', sans-serif;
+    padding: 7 15px;
+    color: #272322;
+}
+#see_discount2{
+    padding: 7 15px;
+    color: #272322;
+    margin-bottom: 10px;
+}
+
+#see_discount3{
+    padding: 7 18px;
+    color: white;
+    background: #272322;
+    display: inline;
+    margin: 0;
+    margin-left: 15px;
+    border-radius: 15px;
+  font-size: 13px;
+  font-weight: 300;
+  cursor: pointer;
+  
+}
+
+/* discount thang */
+
+/* feed back */
+
+.card_fb {
+    --background: #fff;
+    --cardShadow: rgba(32,33,37,.1);
+    --cardShadowHover: rgba(32,33,37,.06);
+    --cardShadowActive: rgba(32,33,37,.55);
+    --cardBorder: #dbdce0;
+    --cardBorderActive: #1a73e8;
+    --textColor: #202125;
+    --linkColor: #1967d2;
+    --ratingColor: #faab00;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    .card_fb {
+      --background: #3c4043;
+      --cardShadow: rgba(0,0,0,.28);
+      --cardShadowHover: rgba(0,0,0,.16);
+      --cardShadowActive: rgba(0,0,0,.55);
+      --cardBorder: #202125;
+      --cardBorderActive: #8ab4f8;
+      --textColor: #e9eaee;
+      --linkColor: #8ab4f8;
+    }
+  }
+  
+  .card_fb {
+    width: 250px;
+    height: 300px;
+    aspect-ratio: 2/3;
+    background: var(--background);
+    color: var(--textColor);
+    border: 1px solid var(--cardBorder);
+    padding: 25px;
+    box-shadow: 8px 8px 0 var(--cardShadow);
+    transition: box-shadow .5s, transform .5s;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  
+  .card_fb:hover {
+    transform: translate(-2px, -4px);
+    box-shadow: 16px 16px 0 var(--cardShadowHover);
+  }
+  
+  .card_fb:active {
+    transform: translate(-2px, -4px);
+    border: 2px solid var(--cardBorderActive);
+    box-shadow: 4px 4px 0 var(--cardShadowActive);
+  }
+  
+  .card_fb > .icon_fb,
+  .card_fb > .title_fb,
+  .card_fb > .description_fb {
+    margin-bottom: 0.7em;
+    cursor: default;
+    user-select: none;
+  }
+  
+  .card_fb > .title_fb {
+    font-weight: bold;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .card_fb > .description_fb {
+    line-height: 1.5em;
+    font-weight: normal;
+  }
+  
+  .card_fb > .icon_fb {
+    font-size: 3em;
+    margin-bottom: .2em;
+  }
+  
+  .card_fb > .rating_fb {
+    font-size: 1.5em;
+    margin-bottom: 0.8em;
+    color: var(--ratingColor);
+    font-weight: bold;
+    position: relative;
+    width: max-content;
+  }
+  
+  .card_fb > .rating_fb:before {
+    content: "☆☆☆☆☆";
+  }
+  
+  .card_fb > .rating_fb:after {
+    content: "★★★★★";
+    position: absolute;
+    left: 0;
+    z-index: 0;
+    width: calc(var(--rating) * 1%);
+    overflow: hidden;
+  }
+  
+  .card_fb > .link_fb {
+    margin-bottom: 1rem;
+    color: var(--linkColor);
+    font-size: .8em;
+    font-weight: 600;
+  }
+  
+  /* Optional ~ Link the whole card */
+  .card_fb > .link_fb::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+  
+  .card_fb > .link_fb:after {
+    content: "↗";
+    display: inline-block;
+    margin-left: .3em;
+    transition: transform .3s ease-in-out;
+  }
+  
+  .card_fb:hover > .link_fb:after {
+    transform: translate(.2em, -.2em);
+  }
+  .icon_fb{
+    width: 50px;
+    height: 50px;
+ 
+}
+.icon_fb img{
+    width: 100%;
+    border-radius: 50%;
+}
+.title_fake_fb{
+  
+    text-align: center;
+   margin-right: 20px;
+    font-size: 18px;
+    font-weight: bold;
+
+}
+.parent_container_fb{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 60px;
+    margin-right: 60px;
+    margin-bottom: 200px;
+}
+.contaier_fb{
+    margin-top: 10px;
+    display: grid;
+    gap: 40px;
+    grid-template-columns: 1fr 1fr 1fr;
+ 
+}
+.contaier_fb p{
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: bold;
+}
+.parent_top_fb{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+/*End feed back */
+
+
+/* flip card */
+.flip-carddd {
+    background-color: transparent;
+    width: 240px;
+    height: 154px;
+    perspective: 1000px;
+    color: white;
+  }
+  
+  .heading_826444 {
+    position: absolute;
+    letter-spacing: .2em;
+    font-size: 0.5em;
+    top: 2em;
+    left: 18.6em;
+  }
+  
+  .logooo {
+    position: absolute;
+    top: 6.8em;
+    left: 11.7em;
+  }
+  
+  .chippp {
+    position: absolute;
+    top: 2.3em;
+    left: 1.5em;
+  }
+  
+  .contactlessss {
+    position: absolute;
+    top: 3.5em;
+    left: 12.4em;
+  }
+  
+  .numberrr {
+    position: absolute;
+    font-weight: bold;
+    font-size: .6em;
+    top: 8.3em;
+    left: 1.6em;
+  }
+  
+  .valid_thruuu {
+    position: absolute;
+    font-weight: bold;
+    top: 635.8em;
+    font-size: .01em;
+    left: 140.3em;
+  }
+  
+  .date_826444 {
+    position: absolute;
+    font-weight: bold;
+    font-size: 0.5em;
+    top: 13.6em;
+    left: 3.2em;
+  }
+  
+  .nameee {
+    position: absolute;
+    font-weight: bold;
+    font-size: 0.5em;
+    top: 16.1em;
+    left: 2em;
+  }
+  
+  .strippp {
+    position: absolute;
+    background-color: black;
+    width: 15em;
+    height: 1.5em;
+    top: 2.4em;
+    background: repeating-linear-gradient(
+      45deg,
+      #303030,
+      #303030 10px,
+      #202020 10px,
+      #202020 20px
+    );
+  }
+  
+  .mstrippp {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    width: 8em;
+    height: 0.8em;
+    top: 5em;
+    left: .8em;
+    border-radius: 2.5px;
+  }
+  
+  .sstrippp {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    width: 4.1em;
+    height: 0.8em;
+    top: 5em;
+    left: 10em;
+    border-radius: 2.5px;
+  }
+  
+  .codeee {
+    font-weight: bold;
+    text-align: center;
+    margin: .2em;
+    color: black;
+  }
+  
+  .flip-card-innerrr {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+  }
+  
+  .flip-carddd:hover .flip-card-innerrr {
+    transform: rotateY(180deg);
+  }
+  
+  .flip-card-fronttt, .flip-card-backkk {
+    box-shadow: 0 8px 14px 0 rgba(0,0,0,0.2);
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 1rem;
+  }
+  
+  .flip-card-fronttt {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+    background-color: #171717;
+  }
+  
+  .flip-card-backkk {
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 2px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -1px 0px inset;
+    background-color: #171717;
+    transform: rotateY(180deg);
+  }
+
+  .main_price{
+    display: flex;
+    align-items: center;
+  }
+  .price_goc{
+    margin-left: 20px;
+    text-decoration: line-through;
+  }
+  .price_sale{
+    color: rgb(247, 23, 23);
+  }
+  .container_sale_top{
+    display: flex;
+   
+    align-items: center;
+  }
+  /*End flip card */
 
