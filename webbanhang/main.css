@@ -1993,12 +1993,17 @@ p{
     margin: 0;
 }
 .menu-left{
-    width: 20%;
+   opacity: 0.2;
+    width: 100px;
     position: sticky; /* Thêm position: sticky */
     left: 5px;
     top: 75px; /* Đặt vị trí cố định ở trên cùng */
     height: 50vh; /* Chiều cao tối đa để menu-left không bị tràn ra ngoài */
     
+}
+.menu-left:hover{
+    width: 300px;
+    opacity: 1;
 }
 /* menu-left */
 .main-shop .menu-left .title-menu{

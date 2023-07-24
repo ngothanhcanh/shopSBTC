@@ -9,42 +9,41 @@ if (isset($_POST['logout-btn'])) {
     session_destroy();
     header('location:login.php');
 }
-if (isset($_POST['add_to_wishlist'])) {
-    $Wishlist_id = $_POST['product_id'];
-    $Wishlist_name = $_POST['product_name'];
-    $Wishlist_price = $_POST['product_price'];
-    $Wishlist_image = $_POST['product_img'];
-    $select_wishlist = mysqli_query($conn, "SELECT * FROM `wishlist` WHERE name='$Wishlist_name' AND use_id ='$user_id' ") or die('query failed');
-    $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE name='$Wishlist_name' AND use_id ='$user_id'") or die('query failed');
+if (isset($_POST['lovevalue'])) {
+    $Wishlist_id = $_POST['lovevalue'];
+    $select_wishlist = mysqli_query($conn, "SELECT * FROM `wishlist` WHERE pid='$Wishlist_id' AND use_id ='$user_id' ") or die('query failed');
+    $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE pid='$Wishlist_id' AND use_id ='$user_id'") or die('query failed');
     if (mysqli_num_rows($select_wishlist) > 0) {
-        $messege[] = 'wishlist already exist';
+        $response['messagea'] = 'wishlist already exist';
     } else if (mysqli_num_rows($select_cart) > 0) {
-        $messege[] = 'product had already in cartory';
+        $response['messagea'] = 'product had already in cart';
     } else {
-        mysqli_query($conn, "INSERT INTO `wishlist`( `use_id`, `pid`, `name`, `price`, `image`) VALUES ('$user_id','$Wishlist_id','$Wishlist_name','$Wishlist_price','$Wishlist_image')") or die('query failed');
-        $messege[] = 'successfully';
+        mysqli_query($conn, "INSERT INTO `wishlist`( `use_id`, `pid`) VALUES ('$user_id','$Wishlist_id')") or die('query failed');
+        $response['messagea'] = 'successfully';
     }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
 }
-if (isset($_POST['add_to_cart'])) {
-    $cart_id = $_POST['product_id'];
-    $cart_name = $_POST['product_name'];
-    $cart_price = $_POST['product_price'];
-    $cart_image = $_POST['product_img'];
-    $cart_quantity = $_POST['product_quantity'];
-
-    $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE name='$cart_name' AND use_id ='$user_id'") or die('query failed');
+if (isset($_POST['pid'])) {
+    $cart_id = $_POST['pid'];
+    // $cart_name = $_POST['product_name'];
+    // $cart_price = $_POST['product_price'];
+    // $cart_image = $_POST['product_img'];
+    // $cart_quantity = $_POST['product_quantity'];
+    $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE pid='$cart_id' AND use_id ='$user_id'") or die('query failed');
     if (mysqli_num_rows($select_cart) > 0) {
-        $messege[] = 'product had already in cartory';
+        $response['messagea'] = 'product had already in cartory';
     } else {
-        mysqli_query($conn, "INSERT INTO `cart`( `use_id`, `pid`, `name`, `price`, `quantity`,`image`) VALUES ('$user_id','$cart_id','$cart_name','$cart_price','  $cart_quantity','$cart_image')") or die('query failed');
-        $messege[] = 'successfully';
+        mysqli_query($conn, "INSERT INTO `cart`( `use_id`, `pid`) VALUES ('$user_id','$cart_id')") or die('query failed');
+        $response['messagea'] = 'successfully';
     }
+    header('Content-Type: application/json');
+    echo json_encode($response);
+    exit();
 }
-if (isset($_GET['pid'])) {
-    $pid_id = $_GET['pid'];
-    mysqli_query($conn, "SELECT * FROM `products` Where id='$pid_id' ") or die('query failed ');
-    header('location:index.php');
-}
+
+
 ?>
 <style type="text/css">
     <?php
@@ -103,17 +102,6 @@ if (isset($_GET['pid'])) {
             <li></li>
         </ul>
     </div>
-    <?php
-    if (isset($messege)) {
-        foreach ($messege as $messege) {
-            echo '<div class="message">
-           <span>' . $messege . '</span>
-           <i class="click" onclick="this.parentElement.remove()">aa</i>
-       </div>';
-        }
-    }
-    ?>
-
     <!-- Trust -->
     <div class="container_trust">
         <card data-aos="fade-up" data-aos-anchor-placement="center-center" class="card_trust">
@@ -147,120 +135,37 @@ if (isset($_GET['pid'])) {
         <div class="wrapper">
             <i id="left" class="fa-solid fa-angle-left"></i>
             <ul class="carousel">
-                <li class="card">
-                    <a class="fa-regular fa-heart fav"></a>
-                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
-                    <h2>Blanche Pearson Blanche Pearson Blanche Pearson Blanche Pearson</h2>
-                    <div class="main_price">
-                        <span class="price_sale">120$</span>
-                        <span class="price_goc">180$</span>
-                    </div>
-
-                    <button class="buttonn">
-                        <span>Add to cart</span>
-                        <div class="cart">
-                            <svg viewBox="0 0 36 26">
-                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-                            </svg>
-                        </div>
-                    </button>
-                </li>
-                <li class="card">
-                    <a class="fa-regular fa-heart fav"></a>
-                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
-                    <h2>Joenas Brauers</h2>
-                    <div class="main_price">
-                        <span class="price_sale">120$</span>
-                        <span class="price_goc">180$</span>
-                    </div>
-                    <button class="buttonn">
-                        <span>Add to cart</span>
-                        <div class="cart">
-                            <svg viewBox="0 0 36 26">
-                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-                            </svg>
-                        </div>
-                    </button>
-                </li>
-                <li class="card">
-                    <a class="fa-regular fa-heart fav"></a>
-                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
-                    <h2>Lariach French</h2>
-                    <div class="main_price">
-                        <span class="price_sale">120$</span>
-                        <span class="price_goc">180$</span>
-                    </div>
-                    <button class="buttonn">
-                        <span>Add to cart</span>
-                        <div class="cart">
-                            <svg viewBox="0 0 36 26">
-                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-                            </svg>
-                        </div>
-                    </button>
-                </li>
-                <li class="card">
-                    <a class="fa-regular fa-heart fav"></a>
-                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
-                    <h2>James Khosravi</h2>
-                    <div class="main_price">
-                        <span class="price_sale">120$</span>
-                        <span class="price_goc">180$</span>
-                    </div>
-                    <button class="buttonn">
-                        <span>Add to cart</span>
-                        <div class="cart">
-                            <svg viewBox="0 0 36 26">
-                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-                            </svg>
-                        </div>
-                    </button>
-                </li>
-                <li class="card">
-                    <a class="fa-regular fa-heart fav"></a>
-                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
-                    <h2>Kristina Zasiadko</h2>
-                    <div class="main_price">
-                        <span class="price_sale">120$</span>
-                        <span class="price_goc">180$</span>
-                    </div>
-                    <button class="buttonn">
-                        <span>Add to cart</span>
-                        <div class="cart">
-                            <svg viewBox="0 0 36 26">
-                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-                            </svg>
-                        </div>
-                    </button>
-                </li>
-                <li class="card">
-                    <a class="fa-regular fa-heart fav"></a>
-                    <div class="img"><img src="image/R.png" alt="img" draggable="false"></div>
-                    <h2>Donald Horton</h2>
-                    <div class="main_price">
-                        <span class="price_sale">120$</span>
-                        <span class="price_goc">180$</span>
-                    </div>
-                    <button class="buttonn">
-                        <span>Add to cart</span>
-                        <div class="cart">
-                            <svg viewBox="0 0 36 26">
-                                <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
-                                <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
-                            </svg>
-                        </div>
-                    </button>
-                </li>
+                <?php $select_all_typeproduct = mysqli_query($conn, "SELECT * From `products` WHERE method ='sale'");
+                if (mysqli_num_rows($select_all_typeproduct) > 0) {
+                    while ($fetch_all_typeproduct = mysqli_fetch_assoc($select_all_typeproduct)) {
+                ?>
+                        <li class="card">
+                            <a class="fa-regular fa-heart fav" id="love1" data-value="<?= $fetch_all_typeproduct['id'] ?>"></a>
+                            <div class="img"><img src="image/<?= $fetch_all_typeproduct['image'] ?>" alt="img" draggable="false"></div>
+                            <h2><?= $fetch_all_typeproduct['name'] ?></h2>
+                            <div class="main_price">
+                                <span class="price_sale"><?= $fetch_all_typeproduct['old_price'] ?>$</span>
+                                <span class="price_goc"><?= $fetch_all_typeproduct['new_price'] ?>$</span>
+                            </div>
+                            <button id='btnsale' class="buttonn" value="<?= $fetch_all_typeproduct['id'] ?>">
+                                <span>Add to cart</span>
+                                <div class="cart">
+                                    <svg viewBox="0 0 36 26">
+                                        <polyline points="1 2.5 6 2.5 10 18.5 25.5 18.5 28.5 7.5 7.5 7.5"></polyline>
+                                        <polyline points="15 13.5 17 15.5 22 10.5"></polyline>
+                                    </svg>
+                                </div>
+                            </button>
+                        </li>
+                <?php }
+                } ?>
             </ul>
             <i id="right" class="fa-solid fa-angle-right"></i>
         </div>
     </div>
-    <p class="title_seeall" style="text-align: center;">Xem tất cả sản phẩm <i class="fa-solid fa-arrow-right"></i></p>
+    <a href="shop.php">
+        <p class="title_seeall" style="text-align: center;">Xem tất cả sản phẩm <i class="fa-solid fa-arrow-right"></i></p>
+    </a>
     <!-- Sản phẩm bán chạy -->
 
     <!-- Loại sản phẩm (Tab_Horizontal)  -->
@@ -283,14 +188,13 @@ if (isset($_GET['pid'])) {
             <div id="contenta" class="content active_product">
                 <?php $select_all_typeproduct = mysqli_query($conn, "SELECT * From `products` Where type_product='quần áo'");
                 if (mysqli_num_rows($select_all_typeproduct) > 0) {
-                    $html = ''; // Biến chứa dữ liệu HTML
                     while ($fetch_all_typeproduct = mysqli_fetch_assoc($select_all_typeproduct)) { ?>
                         <li class="card">
-                            <a class="fa-regular fa-heart fav"></a>
+                            <a class="fa-regular fa-heart fav" id="love2" data-value="<?= $fetch_all_typeproduct['id'] ?>"></a>
                             <div class="img"><img src="image/<?= $fetch_all_typeproduct['image'] ?>" alt="img" draggable="false"></div>
                             <h2><?= $fetch_all_typeproduct['product_detail'] ?></h2>
                             <p><?= $fetch_all_typeproduct['new_price'] ?>$</p>
-                            <button class="buttonn">
+                            <button id="btnnsp" class="buttonn" value="<?= $fetch_all_typeproduct['id']?>">
                                 <span>Add to cart</span>
                                 <div class="cart">
                                     <svg viewBox="0 0 36 26">
@@ -405,33 +309,34 @@ if (isset($_GET['pid'])) {
     </div>
     <div class="parent_container_fb">
         <div data-aos="fade-up" class="contaier_fb">
-            <div class="card_fb" style="--rating:90">
+            <?php
+            $count = 0;
+            $select_message=mysqli_query($conn,"SELECT * FROM `message` ORDER BY id DESC");
+            if(mysqli_num_rows($select_message)>0){
+                while($fetch_message=mysqli_fetch_assoc($select_message))
+                { 
+                    if($count ==3)
+                    {
+                        break;
+                    }
+            ?>
+            <div class="card_fb" >
                 <div class="icon_fb">
                     <img src="image/duongthang.webp" alt="">
                 </div>
-                <div class="title_fb">Dương Thắng</div>
-                <p class="description_fb">Sản phẩm không như hình ảnh, chất lượng kém, tôi đánh giá 4 sao rưỡi.</p>
-                <div class="rating_fb"></div>
+                <div class="title_fb"><?=$fetch_message['name'] ?></div>
+                <p class="description_fb"><?=$fetch_message['message'] ?></p>
+                <div class="rating_fb" style="--rating:<?=$fetch_message['rating'] ?>"></div>
             </div>
-            <div class="card_fb" style="--rating:90">
-                <div class="icon_fb">
-                    <img src="image/duongthang.webp" alt="">
-                </div>
-                <div class="title_fb">Dương Thắng</div>
-                <p class="description_fb">Sản phẩm không như hình ảnh, chất lượng kém, tôi đánh giá 4 sao rưỡi.</p>
-                <div class="rating_fb"></div>
-            </div>
-            <div class="card_fb" style="--rating:90">
-                <div class="icon_fb">
-                    <img src="image/duongthang.webp" alt="">
-                </div>
-                <div class="title_fb">Dương Thắng</div>
-                <p class="description_fb">Sản phẩm không như hình ảnh, chất lượng kém, tôi đánh giá 4 sao rưỡi.</p>
-                <div class="rating_fb"></div>
-            </div>
+            <?php
+            $count ++;
+              }
+            }
+            ?>
         </div>
 
     </div>
+    
 
 
     <!-- Loại sản phẩm (Tab_Horizontal)  -->
@@ -482,6 +387,52 @@ if (isset($_GET['pid'])) {
                 },
                 error: function(xhr, status, error) {
                     console.log(xhr.responseText); // Xem dữ liệu phản hồi từ server khi có lỗi
+                    console.log('Lỗi khi gửi yêu cầu AJAX:', error);
+                }
+            })
+        });
+        $(document).on('click', '#btnsale ,#btnnsp', function() {
+            var btnval = $(this).val();
+            // Tạo object data để gửi qua Ajax request
+            var data = {
+                pid: btnval
+            };
+            $.ajax({
+                url: '',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success: function(response) {
+                    function reloadPage() {
+                         alert(response.messagea);
+                        location.reload();
+                    }
+                    setTimeout(reloadPage, 4000);
+                },
+                error: function(xhr, status, error) {
+                    console.log(xhr.responseText); // Xem dữ liệu phản hồi từ server khi có lỗi
+                    console.log('Lỗi khi gửi yêu cầu AJAX:', error);
+                }
+            })
+        });
+        $(document).on('click', '#love1 ,#love2', function() {
+            var lovevalue = $(this).data('value');
+            // Tạo object data để gửi qua Ajax request
+            var data = {
+                lovevalue: lovevalue
+            };
+            $.ajax({
+                url: '',
+                type: 'POST',
+                dataType: 'json',
+                data: data,
+                success: function(response) {
+                    alert(response.messagea);
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    console.log(data);
+                    console.log(xhr.responseText); 
                     console.log('Lỗi khi gửi yêu cầu AJAX:', error);
                 }
             })
@@ -555,7 +506,7 @@ if (isset($_GET['pid'])) {
             carousel.insertAdjacentHTML("afterbegin", card.outerHTML);
         });
 
-        // Insert copies of the first few cards to end of carousel for infinite scrolling
+        // // Insert copies of the first few cards to end of carousel for infinite scrolling
         carouselChildrens.slice(0, cardPerView).forEach(card => {
             carousel.insertAdjacentHTML("beforeend", card.outerHTML);
         });
@@ -611,12 +562,12 @@ if (isset($_GET['pid'])) {
         }
 
         // Auto play if u want
-        // const autoPlay = () => {
-        //     if(window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
-        //     // Autoplay the carousel after every 2500 ms
-        //     timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
-        // }
-        // autoPlay();
+        const autoPlay = () => {
+            if (window.innerWidth < 800 || !isAutoPlay) return; // Return if window is smaller than 800 or isAutoPlay is false
+            // Autoplay the carousel after every 2500 ms
+            timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
+        }
+        autoPlay();
 
 
         carousel.addEventListener("mousedown", dragStart);
@@ -640,7 +591,7 @@ if (isset($_GET['pid'])) {
     </script>
 
     <div class="line3"></div>
-    <?php include 'footer.php'?>
+    <?php include 'footer.php' ?>
 </body>
 
 </html>

@@ -4,12 +4,14 @@
         <div class="footer__addr">
           <h1 class="footer__logo">SBTC</h1>
               Liên hệ</h2>
-          
+
           <address>
             duognthangpt3011@gmail.com<br>
-                
-            <a class="footer__btn" href="mailto:example@gmail.com">Email Us</a>
+           ngothanhcanh2002@gmail.com<br>
+            levanthuan2209@gmail.com<br>
+            <a class="footer__btn" href="about.php" style="position: absolute;">contract Us</a>
           </address>
+          
         </div>
         
         <ul class="footer__nav">
@@ -33,7 +35,6 @@
           
           <li class="nav__item nav__item--extra">
             <h2 class="nav__title">Công nghệ</h2>
-            
             <ul class="nav__ul nav__ul--extra">
               <li>
                 <a href="#">HTML</a>
@@ -46,7 +47,6 @@
               <li>
                 <a href="#">JavaScript</a>
               </li>
-              
               <li>
                 <a href="#">PHP</a>
               </li>
@@ -54,8 +54,6 @@
               <li>
                 <a href="#">Ajax</a>
               </li>
-              
-             
             </ul>
           </li>
           <div class="footer_bg">

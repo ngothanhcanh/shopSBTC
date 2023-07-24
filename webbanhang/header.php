@@ -1,4 +1,6 @@
-<?php include 'connection.php'  ?>
+<?php include 'connection.php';
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +15,7 @@
 <body>
     <header class="header">
      <div class="flex">
-        <a href="admin_pannel.php" class="logo"><img width="70px" height="70px" src="image/sbtclogo.png"></a>
+        <a href="index.php" class="logo"><img width="70px" height="70px" src="image/sbtclogo.png"></a>
         <nav class="navbar">
             <a class="activemenu" href="index.php">home</a>
             <a href="about.php">about us</a>
@@ -27,11 +29,11 @@
             <?php $select_wishlist=mysqli_query($conn,"SELECT * FROM `wishlist` WHERE use_id='$user_id'") or die('query failed');
              $Wishlisht_rows = mysqli_num_rows($select_wishlist);
             ?>
-            <a href="wishlist.php" ><i id="heart-btn" class="fa-regular fa-heart">&emsp;</i><sup class="sup1"><?php echo $Wishlisht_rows ?></sup></a>
+            <a href="wishlist.php" ><i id="heart-btn" class="fa-regular fa-heart">&emsp;</i><sup class="sup1" id="wishlist-count"><?php echo $Wishlisht_rows ?></sup></a>
             <?php $select_cart=mysqli_query($conn,"SELECT * FROM `cart` WHERE use_id='$user_id'") or die('query failed');
              $cart_rows = mysqli_num_rows($select_cart);
             ?>
-            <a href="cart.php"><i id="card-btn" class="fa-sharp fa-solid fa-cart-shopping" >&emsp;</i><sup class="sup2"><?php echo $cart_rows ?></sup></a>
+            <a href="cart.php"><i id="card-btn" class="fa-sharp fa-solid fa-cart-shopping" >&emsp;</i><sup class="sup2" id="cart-count"><?php echo $cart_rows ?></sup></a>
             <i class="fa-sharp fa-solid fa-bars" id="menu-btn" >&emsp;</i>
         </div>
         <div class="user-box">

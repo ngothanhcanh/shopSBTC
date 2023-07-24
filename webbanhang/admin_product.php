@@ -16,6 +16,7 @@
                 $newprice = mysqli_real_escape_string($conn, $_POST['newprice']);
                 $product_detail = mysqli_real_escape_string($conn, $_POST['detail']);
                 $type = mysqli_real_escape_string($conn, $_POST['type']);
+                $method = mysqli_real_escape_string($conn, $_POST['method']);
                 $image = $_FILES['image']['name'];
                 $image_size = $_FILES['image']['size'];
                 $image_tmp_name = $_FILES['image']['tmp_name'];
@@ -25,8 +26,9 @@
                     $messege[] = 'product name already exit';
                     header("Refresh:1;url=admin_product.php");
                 } else {
-                    $insert_product = mysqli_query($conn, "INSERT INTO `products`( `name`, `old_price`,`new_price`,`product_detail`,`type_product`,`image`)
-                    VALUES ('$product_name','$oldprice','$newprice','$product_detail','$type','$image')") or die('query failed');
+                    $insert_menu = mysqli_query($conn, "INSERT IGNORE INTO `menu_product`(`type_product`) VALUES ('$type')");
+                    $insert_product = mysqli_query($conn, "INSERT INTO `products`( `name`, `old_price`,`new_price`,`product_detail`,`type_product`,`method`,`image`)
+                    VALUES ('$product_name','$oldprice','$newprice','$product_detail','$type','$method','$image')") or die('query failed');
                 if($insert_product)
                 {
                     if($image_size>2000000){
@@ -40,8 +42,7 @@
             }
             }
             if(isset($_GET['delete']))
-            {
-                $delete_id = $_GET['delete'];
+            {    $delete_id = $_GET['delete'];
                 $selecte_delete_image = mysqli_query($conn,"SELECT image FROM `products` WHERE id ='$delete_id'") or die('query failed');
                 $fetch_detele_image = mysqli_fetch_assoc($selecte_delete_image);
                 unlink('image/'.$fetch_detele_image['image']);
@@ -58,10 +59,11 @@
                     $update_oldprice = $_POST['update_newprice'];
                     $update_detail = $_POST['update_detail'];
                     $update_type = $_POST['update_type'];
+                     $update_method = $_POST['update_method'];
                    $update_image =$_FILES['update_image']['name'];
                    $update_image_tmp_name=$_FILES['update_image']['tmp_name'];
                    $update_image_folder='image/'.$update_image;
-                   $update_query=mysqli_query($conn,"UPDATE `products` SET `id`='$update_id',`name`='$update_name',`old_price`='$update_oldprice',`new_price`='$new_oldprice',`product_detail`='$update_detail',`type_product`='$update_type',`image`='$update_image' WHERE id ='$update_id'") or die('query failed');
+                   $update_query=mysqli_query($conn,"UPDATE `products` SET `id`='$update_id',`name`='$update_name',`old_price`='$update_oldprice',`new_price`='$new_oldprice',`product_detail`='$update_detail',`type_product`='$update_type',`method`='$update_method',`image`='$update_image' WHERE id ='$update_id'") or die('query failed');
                 if($update_query)
                 {
                     move_uploaded_file($update_image_tmp_name,$update_image_folder);
@@ -100,27 +102,31 @@
     <section class="add-products form-contaniner">
         <form method="post" action="" enctype="multipart/form-data">
             <div class="input-field">
-                <label >product name</label>
+                <label >Tên sản phẩm</label>
                 <input type="text" name="name" require>
             </div>
             <div class="input-field">
-                <label >old price</label>
+                <label >Giá củ</label>
                 <input type="text" name="oldprice" require>
             </div>
             <div class="input-field">
-                <label >new price</label>
+                <label >Giá mới</label>
                 <input type="text" name="newprice" require>
             </div>
             <div class="input-field">
-                <label >product detail</label>
+                <label >Mô tả sản phẩm</label>
                 <textarea name="detail" require></textarea>
             </div>
             <div class="input-field">
-                <label >product type</label>
+                <label >Loại hàng</label>
                 <input type="text" name="type" require>
             </div>
             <div class="input-field">
-                <label >product image</label>
+                <label >Thuộc tính sản phẩm</label>
+                <input type="text" name="method" require>
+            </div>
+            <div class="input-field">
+                <label >Hình sản phẩm</label>
                 <input type="file" name="image" accept="image/jpg, image/jpeg , image/png, image/webp" require>
             </div>
             <input type="submit" name="add_product" value="add product" class="btn">
@@ -168,7 +174,6 @@
             if(mysqli_num_rows($edit_query)>0){
              while($fetch_edit=mysqli_fetch_assoc($edit_query)){              
       ?>
-
       <form method="POST" enctype="multipart/form-data">
           <img  src="image/<?php echo $fetch_edit['image']; ?>">
           <input type="hidden" name="update_id" value="<?php echo $fetch_edit['id'];?>">
@@ -177,6 +182,7 @@
           <input type="number" name="update_newprice" min="0" value="<?php echo $fetch_edit['new_price']; ?>">
           <textarea name="update_detail"><?php echo $fetch_edit['product_detail'] ;?></textarea>
           <input type="text" name="update_type" value="<?php echo $fetch_edit['type_product']; ?>">
+          <input type="text" name="update_method" value="<?php echo $fetch_edit['method']; ?>">
           <input type="file" name="update_image" accept="image/jpg, image/jpeg, image/png, image/webp"> 
           <input type="submit" name="update_product" value="update" class="edit"> 
           <input type="reset" name="" value="cancle" class="option-btn btn" id="close-form">

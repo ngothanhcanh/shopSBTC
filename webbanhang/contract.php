@@ -22,14 +22,15 @@ if(isset($_POST['submit-btn']))
 
     $filter_message = filter_var($_POST['message'], FILTER_SANITIZE_STRING);
     $message = mysqli_real_escape_string($conn, $filter_message);
-     
-    $select_message = mysqli_query($conn,"SELECT * FROM `message` WHERE email = '$email' AND name ='$name' AND number ='$number' AND message = '$message' ") or die('query failed');
-    if($row = mysqli_num_rows($select_message)>0){
-      $messege [] ='already message';
-    }else{
-        $insert_message = mysqli_query($conn,"INSERT INTO `message`(`use_id`, `name`, `email`, `number`, `message`) VALUES ('$user_id','$name','$email','$number','$message')") or die('failed query');
+
+    $filter_subject = filter_var($_POST['rating'], FILTER_SANITIZE_STRING);
+    $rating = mysqli_real_escape_string($conn, $filter_subject);
+    if($rating>=0 && $rating <=10)
+    { 
+        $rating1 =$rating*10;
+        $insert_message = mysqli_query($conn,"INSERT INTO `message`(`use_id`, `name`, `email`, `number`, `message`,`rating`) VALUES ('$user_id','$name','$email','$number','$message','$rating1')") or die('failed query');
         $messege [] ='send successfully';
-    }             
+    }        
 }
 
 ?>
@@ -103,19 +104,23 @@ if(isset($_POST['submit-btn']))
         <form method="post">
             <div class="input-field">
                 <label>your name</label><br>
-                <input type="text" name="name">
+                <input type="text" name="name" required>
             </div>
             <div class="input-field">
                 <label>your email</label><br>
-                <input type="text" name="email">
+                <input type="text" name="email" required>
             </div>
             <div class="input-field">
                 <label>phone number</label><br>
-                <input type="number" name="number">
+                <input type="number" name="number" >
             </div>
             <div class="input-field">
                 <label>message</label><br>
-                <textarea name="message"></textarea>
+                <textarea name="message"></textarea required>
+            </div>
+            <div class="input-field">
+                <label>Cho điểm đánh giá 1->10</label><br>
+                <input type="number" min="1" max="10" name="rating" step="1" required>
             </div>
             <button type="submit" name="submit-btn">send message</button>
         </form>

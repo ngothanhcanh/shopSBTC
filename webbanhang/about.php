@@ -34,12 +34,12 @@ if (isset($_POST['logout-btn'])) {
             <div class="contenttt">
               <div class="img"><img src="image/duongthang.webp"></div>
               <div class="cardContent">
-                <h3>Duong Thang<br><span>Web & App Developer</span></h3>
+                <h3>Duong Thang<br><span>Web(Frond-End) & App Developer</span></h3>
               </div>
             </div>
             <ul class="sci">
               <li style="--i:1">
-                <a href="#"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100023169051128"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
               </li>
               <li style="--i:2">
                 <a href="#"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
@@ -53,12 +53,12 @@ if (isset($_POST['logout-btn'])) {
             <div class="contenttt">
               <div class="img"><img src="image/vanthuan.jpg"></div>
               <div class="cardContent">
-                <h3>Le Van Thuan<br><span>Grafic Designer</span></h3>
+                <h3>Le Van Thuan<br><span>Grafic Designer & Tester</span></h3>
               </div>
             </div>
             <ul class="sci">
               <li style="--i:1">
-                <a href="#"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+                <a href="https://www.facebook.com/thuan.levan.1257"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
               </li>
               <li style="--i:2">
                 <a href="#"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
@@ -72,18 +72,18 @@ if (isset($_POST['logout-btn'])) {
             <div class="contenttt">
               <div class="img"><img src="https://scontent.fsgn8-2.fna.fbcdn.net/v/t39.30808-6/274354855_1319772481830568_5061542277936862532_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=c0t-ZwHr1u8AX_sh1IV&_nc_ht=scontent.fsgn8-2.fna&oh=00_AfAs2-uypPI923ovPgsUXUocEpuvx8ZctX1p2TVq3Sr07Q&oe=64C0FE94"></div>
               <div class="cardContent">
-                <h3>Ngo Thanh Canh<br><span>WEB Developer</span></h3>
+                <h3>Ngo Thanh Canh<br><span>WEB Developer (Back-End)</span></h3>
               </div>
             </div>
             <ul class="sci">
               <li style="--i:1">
-                <a href="#"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
+                <a href="https://www.facebook.com/ngothanhcanh02"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
               </li>
               <li style="--i:2">
-                <a href="#"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                <a href="https://www.instagram.com/ngothanhcanh2001/"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
               </li>
               <li style="--i:3">
-                <a href="#"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
+                <a href="https://github.com/ngothanhcanh"><i class="fa-brands fa-github" aria-hidden="true"></i></a>
               </li>
           </ul>
           </div>

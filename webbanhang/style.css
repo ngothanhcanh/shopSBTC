@@ -145,7 +145,7 @@ z-index: 100;
     text-align: center;
 }
 .form-contaniner form{
-    width: 60%;
+    width: 50%;
     margin: 1rem auto;
     background: rgb(255 255 255/80%);
     box-shadow: var(--box-shadow);
@@ -168,6 +168,9 @@ z-index: 100;
     width: 85%;
     background: var(--orange);
  border: none;
+}
+.input-field{
+    display: block;
 }
 /* form banner */
 .banner{
