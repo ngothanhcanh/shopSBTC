@@ -284,7 +284,30 @@ body::after {
             $(this).addClass('activemenu').siblings().removeClass('activemenu')
         })
     </script>
+ <script>
+        // Hàm thực hiện cập nhật lại dữ liệu trong header.php
+        function updateHeaderData() {
+            $.ajax({
+                url: 'http://localhost/shop/webbanhang/update_header.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Cập nhật dữ liệu mới vào các phần tử trong header.php
+                    $('#wishlist-count').text(data.wishlist_count);
+                    $('#cart-count').text(data.cart_count);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi khi gửi yêu cầu AJAX:', error);
+                }
+            });
+        }
+        setInterval(function() {
+            updateHeaderData();
+        }, 1000);
 
+        // Gọi hàm cập nhật dữ liệu khi trang được load
+        updateHeaderData();
+    </script>
     <script src="./script2.js"></script>
 </body>
 

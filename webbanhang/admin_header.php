@@ -13,13 +13,13 @@
 <body>
     <header class="header">
      <div class="flex">
-        <a href="admin_pannel.php" class="logo"><img src="img/logo.png"></a>
+        <a href="admin_pannel.php" class="logo"><img width="70px" height="70px" src="image/sbtclogo.png"></a>
         <nav class="navbar">
             <a href="admin_pannel.php">home</a>
-            <a href="admin_product.php">product</a>
+            <a href="admin_sanpham.php">product</a>
             <a href="admin_order.php">oders</a>
             <a href="admin_user.php">users</a>
-            <a href="admin_message.php">message</a>
+            <a href="admin_tinnhan.php">message</a>
         </nav>
         <div class="icons">
             <i class="fa-sharp fa-solid fa-user" id="user-btn"> &emsp;</i>
@@ -37,8 +37,8 @@
     </header>
     <div class="banner">
         <div class="detail">
-            <h1>admin dashboard</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor.</p>
+            <h1>Trang Quản Lý</h1>
+            <p>Để có website uy tính chất lượng liên hệ chúng tôi ngay!<a href="https://www.facebook.com/ngothanhcanh02"><i class="fa-brands fa-facebook"></i></a></p>
         </div>
     </div>
     <div class="line"></div>

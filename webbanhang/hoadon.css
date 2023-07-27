@@ -1,0 +1,89 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Varela+Round&display=swap');
+
+:root{
+    --color-text:#3598fe;
+}
+body{
+    
+font-family: 'Varela Round', sans-serif;
+}
+p{
+    color: var(--color-text);
+}
+.container-form-hoadon{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+    width: 1100px;
+    border-collapse:separate; 
+  border-spacing: 0 0.5em;
+}
+th{
+    text-align: left;
+    
+   
+}
+ td {
+   color:#005c99;
+    padding-top: 20px;
+    padding-bottom: 20px;
+   
+}
+td {
+   
+    background-color: #e6f7ff; /* Màu xanh nhạt cho các ô dữ liệu */
+}
+.form-hoadon{
+    
+}
+
+.fa-eye{
+    color: #3598fe;
+    margin-right: 10px;
+}
+.fa-trash{
+    color: #ff6600;
+}
+.first-child-hd{
+    
+   text-align: center;
+    border-radius: 10px 0px 0px 10px;
+}
+.last-child-hd{
+    border-radius: 0px 10px 10px 0px;
+    text-align: center;
+    
+}
+.title-fake-hd{
+    margin-left: 220px;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 90px;
+    margin-bottom: 20px;
+}
+.diachi-hd{
+    padding-right: 30px;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.ten-hd-user{
+    padding-right: 30px;
+    max-width: 100px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.date-hd{
+    width: 140px;
+    padding-right: 20px;
+}

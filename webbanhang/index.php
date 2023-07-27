@@ -14,12 +14,12 @@ if (isset($_POST['lovevalue'])) {
     $select_wishlist = mysqli_query($conn, "SELECT * FROM `wishlist` WHERE pid='$Wishlist_id' AND use_id ='$user_id' ") or die('query failed');
     $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE pid='$Wishlist_id' AND use_id ='$user_id'") or die('query failed');
     if (mysqli_num_rows($select_wishlist) > 0) {
-        $response['messagea'] = 'wishlist already exist';
+        $response['messagea'] = 'Sản phẩm đã có trong danh sách thích';
     } else if (mysqli_num_rows($select_cart) > 0) {
-        $response['messagea'] = 'product had already in cart';
+        $response['messagea'] = 'Sản phẩm đã có trong giỏ hàng';
     } else {
         mysqli_query($conn, "INSERT INTO `wishlist`( `use_id`, `pid`) VALUES ('$user_id','$Wishlist_id')") or die('query failed');
-        $response['messagea'] = 'successfully';
+       
     }
     header('Content-Type: application/json');
     echo json_encode($response);
@@ -27,16 +27,13 @@ if (isset($_POST['lovevalue'])) {
 }
 if (isset($_POST['pid'])) {
     $cart_id = $_POST['pid'];
-    // $cart_name = $_POST['product_name'];
-    // $cart_price = $_POST['product_price'];
-    // $cart_image = $_POST['product_img'];
-    // $cart_quantity = $_POST['product_quantity'];
+    $cart_quantity = 1;
     $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE pid='$cart_id' AND use_id ='$user_id'") or die('query failed');
     if (mysqli_num_rows($select_cart) > 0) {
-        $response['messagea'] = 'product had already in cartory';
+        $response['messagea'] = 'Sản phẩm đã có trong giỏ hàng';
     } else {
-        mysqli_query($conn, "INSERT INTO `cart`( `use_id`, `pid`) VALUES ('$user_id','$cart_id')") or die('query failed');
-        $response['messagea'] = 'successfully';
+        mysqli_query($conn, "INSERT INTO `cart`( `use_id`, `pid`,`quantity`) VALUES ('$user_id','$cart_id','$cart_quantity')") or die('query failed');
+
     }
     header('Content-Type: application/json');
     echo json_encode($response);
@@ -74,19 +71,19 @@ if (isset($_POST['pid'])) {
     <div class="slider">
         <div class="list">
             <div class="item">
-                <img src="img/1.jpg" alt="">
+                <img src="img/shop5.jpg" alt="">
             </div>
             <div class="item">
-                <img src="img/2.jpg" alt="">
+                <img src="img/shop1.jpg" alt="">
             </div>
             <div class="item">
-                <img src="img/hinh3.jpg" alt="">
+                <img src="img/shop3.jpg" alt="">
             </div>
             <div class="item">
-                <img src="img/hinh4.jpg" alt="">
+                <img src="img/shop2.jpg" alt="">
             </div>
             <div class="item">
-                <img src="img/5.jpg" alt="">
+                <img src="img/shop4.png" alt="">
             </div>
         </div>
         <div class="buttons">
@@ -141,13 +138,13 @@ if (isset($_POST['pid'])) {
                 ?>
                         <li class="card">
                             <a class="fa-regular fa-heart fav" id="love1" data-value="<?= $fetch_all_typeproduct['id'] ?>"></a>
-                            <div class="img"><img src="image/<?= $fetch_all_typeproduct['image'] ?>" alt="img" draggable="false"></div>
+                            <div class="img"> <a href="detailproduct.php?pid=<?=$fetch_all_typeproduct['id']?>"><img src="image/<?= $fetch_all_typeproduct['image'] ?>" alt="img" draggable="false"></a></div>
                             <h2><?= $fetch_all_typeproduct['name'] ?></h2>
                             <div class="main_price">
-                                <span class="price_sale"><?= $fetch_all_typeproduct['old_price'] ?>$</span>
-                                <span class="price_goc"><?= $fetch_all_typeproduct['new_price'] ?>$</span>
+                                <span class="price_sale"><?= $fetch_all_typeproduct['new_price'] ?>$</span>
+                                <span class="price_goc"><?= $fetch_all_typeproduct['old_price'] ?>$</span>
                             </div>
-                            <button id='btnsale' class="buttonn" value="<?= $fetch_all_typeproduct['id'] ?>">
+                            <button id='btnsale' class="buttonn add-to-card" value="<?= $fetch_all_typeproduct['id'] ?>">
                                 <span>Add to cart</span>
                                 <div class="cart">
                                     <svg viewBox="0 0 36 26">
@@ -186,15 +183,15 @@ if (isset($_POST['pid'])) {
         </div>
         <div class="content_box">
             <div id="contenta" class="content active_product">
-                <?php $select_all_typeproduct = mysqli_query($conn, "SELECT * From `products` Where type_product='quần áo'");
+            <?php $select_all_typeproduct = mysqli_query($conn, "SELECT * From `products` Where type_product='quần áo'");
                 if (mysqli_num_rows($select_all_typeproduct) > 0) {
                     while ($fetch_all_typeproduct = mysqli_fetch_assoc($select_all_typeproduct)) { ?>
                         <li class="card">
                             <a class="fa-regular fa-heart fav" id="love2" data-value="<?= $fetch_all_typeproduct['id'] ?>"></a>
-                            <div class="img"><img src="image/<?= $fetch_all_typeproduct['image'] ?>" alt="img" draggable="false"></div>
+                            <div class="img"> <a href="detailproduct.php?pid=<?=$fetch_all_typeproduct['id']?>"><img src="image/<?= $fetch_all_typeproduct['image'] ?>" alt="img" draggable="false"></a></div>
                             <h2><?= $fetch_all_typeproduct['product_detail'] ?></h2>
                             <p><?= $fetch_all_typeproduct['new_price'] ?>$</p>
-                            <button id="btnnsp" class="buttonn" value="<?= $fetch_all_typeproduct['id']?>">
+                            <button id="btnnsp" class="buttonn add-to-card" value="<?= $fetch_all_typeproduct['id'] ?>">
                                 <span>Add to cart</span>
                                 <div class="cart">
                                     <svg viewBox="0 0 36 26">
@@ -311,39 +308,60 @@ if (isset($_POST['pid'])) {
         <div data-aos="fade-up" class="contaier_fb">
             <?php
             $count = 0;
-            $select_message=mysqli_query($conn,"SELECT * FROM `message` ORDER BY id DESC");
-            if(mysqli_num_rows($select_message)>0){
-                while($fetch_message=mysqli_fetch_assoc($select_message))
-                { 
-                    if($count ==3)
-                    {
+            $select_message = mysqli_query($conn, "SELECT * FROM `message` ORDER BY id DESC");
+            if (mysqli_num_rows($select_message) > 0) {
+                while ($fetch_message = mysqli_fetch_assoc($select_message)) {
+                    if ($count == 3) {
                         break;
                     }
             ?>
-            <div class="card_fb" >
-                <div class="icon_fb">
-                    <img src="image/duongthang.webp" alt="">
-                </div>
-                <div class="title_fb"><?=$fetch_message['name'] ?></div>
-                <p class="description_fb"><?=$fetch_message['message'] ?></p>
-                <div class="rating_fb" style="--rating:<?=$fetch_message['rating'] ?>"></div>
-            </div>
+                    <div class="card_fb">
+                        <div class="icon_fb">
+                            <img src="image/duongthang.webp" alt="">
+                        </div>
+                        <div class="title_fb"><?= $fetch_message['name'] ?></div>
+                        <p class="description_fb"><?= $fetch_message['message'] ?></p>
+                        <div class="rating_fb" style="--rating:<?= $fetch_message['rating'] ?>"></div>
+                    </div>
             <?php
-            $count ++;
-              }
+                    $count++;
+                }
             }
             ?>
         </div>
 
     </div>
-    
-
-
     <!-- Loại sản phẩm (Tab_Horizontal)  -->
     <!-- <-?php include 'homeshop.php';  ?> -->
     <script src="./script2.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Hàm thực hiện cập nhật lại dữ liệu trong header.php
+        function updateHeaderData() {
+            $.ajax({
+                url: 'http://localhost/shop/webbanhang/update_header.php', // File PHP xử lý yêu cầu Ajax để lấy dữ liệu mới
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Cập nhật dữ liệu mới vào các phần tử trong header.php
+                    $('#wishlist-count').text(data.wishlist_count);
+                    $('#cart-count').text(data.cart_count);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi khi gửi yêu cầu AJAX:', error);
+                }
+            });
+        }
+
+        // Cập nhật lại dữ liệu sau khoảng thời gian 5 giây
+        setInterval(function() {
+            updateHeaderData();
+        }, 1000);
+
+        // Gọi hàm cập nhật dữ liệu khi trang được load
+        updateHeaderData();
+    </script>
     <script>
         // Xử lý sự kiện khi click vào div có class "tab_box"
         // Xử lý sự kiện khi click vào các tab
@@ -384,6 +402,13 @@ if (isset($_POST['pid'])) {
                     console.log(response); // Xem dữ liệu phản hồi
                     $('#contenta').empty();
                     $('#contenta').html(response);
+                    document.querySelectorAll('.ad-to-card').forEach(button => button.addEventListener('click', e => {
+                        if (!button.classList.contains('loading')) {
+                            button.classList.add('loading');
+                            setTimeout(() => button.classList.remove('loading'), 3700);
+                        }
+                        e.preventDefault();
+                    }));
                 },
                 error: function(xhr, status, error) {
                     console.log(xhr.responseText); // Xem dữ liệu phản hồi từ server khi có lỗi
@@ -403,11 +428,10 @@ if (isset($_POST['pid'])) {
                 dataType: 'json',
                 data: data,
                 success: function(response) {
-                    function reloadPage() {
-                         alert(response.messagea);
-                        location.reload();
-                    }
-                    setTimeout(reloadPage, 4000);
+                   if(response)
+                   {
+                    swal("Error!", response.messagea, "error")
+                   }
                 },
                 error: function(xhr, status, error) {
                     console.log(xhr.responseText); // Xem dữ liệu phản hồi từ server khi có lỗi
@@ -427,12 +451,14 @@ if (isset($_POST['pid'])) {
                 dataType: 'json',
                 data: data,
                 success: function(response) {
-                    alert(response.messagea);
-                    location.reload();
+                    if(response)
+                   {
+                    swal("Error!", response.messagea, "error")
+                   }
                 },
                 error: function(xhr, status, error) {
                     console.log(data);
-                    console.log(xhr.responseText); 
+                    console.log(xhr.responseText);
                     console.log('Lỗi khi gửi yêu cầu AJAX:', error);
                 }
             })
@@ -568,8 +594,6 @@ if (isset($_POST['pid'])) {
             timeoutId = setTimeout(() => carousel.scrollLeft += firstCardWidth, 2500);
         }
         autoPlay();
-
-
         carousel.addEventListener("mousedown", dragStart);
         carousel.addEventListener("mousemove", dragging);
         document.addEventListener("mouseup", dragStop);
@@ -578,7 +602,7 @@ if (isset($_POST['pid'])) {
         wrapper.addEventListener("mouseleave", autoPlay);
     </script>
     <script>
-        document.querySelectorAll('.buttonn').forEach(button => button.addEventListener('click', e => {
+        document.querySelectorAll('.add-to-card').forEach(button => button.addEventListener('click', e => {
             if (!button.classList.contains('loading')) {
 
                 button.classList.add('loading');
@@ -589,8 +613,6 @@ if (isset($_POST['pid'])) {
             e.preventDefault();
         }));
     </script>
-
-    <div class="line3"></div>
     <?php include 'footer.php' ?>
 </body>
 

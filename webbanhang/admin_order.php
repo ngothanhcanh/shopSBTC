@@ -1,95 +1,124 @@
 <?php
-            include 'connection.php';
-            session_start();
-            $admin_id = $_SESSION['admin_name'];
-            if (!isset($admin_id)) {
-                header('location:login.php');
-            }
-            if (isset($_POST['logout-btn'])) {
-                session_destroy();
-                header('location:login.php');
-            }
-    
-        if(isset($_GET['delete']))
-        { 
-           $order_id=$_GET['delete'];
-           mysqli_query($conn,"DELETE FROM `order` WHERE id='$order_id'") or die('query failed');
-           $messege[] ='user removed successfully';
-           header('location:admin_order.php');
-        }
-        // update payment status
-        if(isset($_POST['update_order']))
-        {
-            $oderid=$_POST['order_id'];
-            $update_payment=$_POST['update_payment'];
-            mysqli_query($conn,"UPDATE `order` SET payment_status='$update_payment' WHERE id='$oderid'") or die('query failed');
-        }
+include 'connection.php';
+session_start();
+$admin_id = $_SESSION['admin_name'];
+if (!isset($admin_id)) {
+    header('location:login.php');
+}
+if (isset($_POST['logout-btn'])) {
+    session_destroy();
+    header('location:login.php');
+}
+if (isset($_GET['delete'])) {
+    $order_id = $_GET['delete'];
+    mysqli_query($conn, "DELETE FROM `order` WHERE id='$order_id'") or die('query failed');
+    $messege[] = 'user removed successfully';
+    header('location:admin_order.php');
+}
+// update payment status
+if (isset($_POST['payment_status'])) {
+    $oderid = $_POST['order_id'];
+    $update_payment = $_POST['payment_status'];
+    mysqli_query($conn, "UPDATE `order` SET payment_status='$update_payment' WHERE id='$oderid'") or die('query failed');
+}
 ?>
+<style type="text/css">
+    <?php
+    include 'admin_order.css';
+    ?>
+</style>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <!--box icon link-->
-     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" tyle="text/css" href="style.css">
-    
-    <title>admin user</title>
+    <!--box icon link-->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+
+    <title>Manager order</title>
 </head>
+
 <body>
-    <?php include 'admin_header.php'; ?>
-    <?php 
-    if(isset($messege))
-    {
-        foreach($messege as $messege)
-        {
-            echo'<div class="message">
-            <span>'.$messege.'</span>
-            <i class="click" onclick="this.parentElement.remove()">aa</i>
-        </div>';
-        }
-    }
-    ?>
-    <div class="line4"></div>
-    <section class="order-container">
-        <h1 class="title">order</h1>
-        <div class="box-container">
-    <?php $select_orders=mysqli_query($conn,"SELECT *FROM `order`") or die('query failed');
-         if(mysqli_num_rows($select_orders)>0){
-            while($fetch_orders=mysqli_fetch_assoc($select_orders))
-            {   
-                ?>
-                <div class="box">
-                    <p>user name: <span><?php echo $fetch_orders['name']; ?></span> </p>
-                    <p>user id: <span><?php echo $fetch_orders['use_id']; ?></span> </p>
-                    <p>placed on: <span><?php echo $fetch_orders['placed_on']; ?></span> </p>
-                    <p>number: <span><?php echo $fetch_orders['number']; ?></span> </p>
-                    <p>email: <span><?php echo $fetch_orders['email']; ?></span> </p>
-                    <p>total price: <span><?php echo $fetch_orders['total_price']; ?></span> </p>
-                    <p>method: <span><?php echo $fetch_orders['method']; ?></span> </p>
-                    <p>adress: <span><?php echo $fetch_orders['adress']; ?></span> </p>
-                    <p>total product: <span><?php echo $fetch_orders['total_products']; ?></span> </p>
-                    <form method="post">
-                        <input type="hidden" name="order_id" value="<?php echo$fetch_orders['id']; ?>">
-                        <select name="update_payment" >
-                            <option disabled selected><?php echo $fetch_orders['payment_status']; ?></option>
-                            <option value="pending">Pending</option>
-                            <option value="complete">complete</option>
-                        </select>
-                        <input type="submit" name="update_order" value="update payment" class="btn">
-                        <a href="admin_order.php?delete=<?php echo $fetch_orders['id']; ?>" class="delete">delete</a>
-                    </form>
-                </div>
-                
-           <?php      
+    <?php include 'admin_header.php' ?>
+    <p class="title-fake-hd">Quản lý đặt hàng</p>
+    <div class="container-form-hoadon">
+
+        <table class="form-hoadon">
+
+            <tr>
+                <th class="first-child-hd">Mã đặt hàng</th>
+                <th>Tên khách hàng</th>
+                <!-- <th>Sản phẩm</th> -->
+                <th>Ngày đặt hàng</th>
+                <th>Tiền hàng</th>
+                <th>Địa Chỉ</th>
+                <th>Trạng thái</th>
+                <th>Phương thức thanh toán</th>
+                <th class="last-child-hd">Thao tác</th>
+            </tr>
+
+            <?php $select_orders = mysqli_query($conn, "SELECT * FROM `order`") or die('query failed');
+            if (mysqli_num_rows($select_orders) > 0) {
+                while ($fetch_orders = mysqli_fetch_assoc($select_orders)) {
+            ?>
+                    <tr class="info-hd">
+                        <td class="first-child-hd"><?php echo $fetch_orders['id']; ?></td>
+                        <td class="date-hd"><span><?php echo $fetch_orders['name']; ?></td>
+                        <!-- <td class="ten-hd-user">Dương Thắngdfhgdfhdfghfghfghfghgfhghghfghfghfhfghfghfghfhfghfg</td> -->
+                        <td class="diachi-hd"><?php echo $fetch_orders['placed_on']; ?><span></td>
+                        <td class="diachi-hd"><?php echo $fetch_orders['total_price']; ?></td>
+                        <td><?php echo $fetch_orders['adress']; ?></td>
+                        <td>
+                            <select name="update_payment" class="update_payment" data-order-id="<?php echo $fetch_orders['id']; ?>">
+                                <option disabled selected><?php echo $fetch_orders['payment_status']; ?></option>
+                                <option value="Đợi Duyệt">Đợi Duyệt</option>
+                                <option value="Đang Giao">Đang Giao</option>
+                                <option value="Đã Giao">Đã Giao</option>
+                            </select>
+                        </td>
+                        <td>Thanh toán khi nhận hàng</td>
+                        <td class="last-child-hd">
+                            <div class="thaotac"><i class="fa-solid fa-pen"></i><a href="admin_order.php?delete=<?php echo $fetch_orders['id']; ?>"><i class="fa-solid fa-trash"></i></a></div>
+                        </td>
+                    </tr>
+
+            <?php
+                }
+            } else {
+                echo '<div class="empty"><p>no order placed yet!</p></div>';
             }
-         }else{
-               echo '<div class="empty"><p>no order placed yet!</p></div>';
-         }
-           ?>
-           </div>
-</section>
+            ?>
+        </table>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Xử lý sự kiện khi giá trị được chọn thay đổi
+            $('.update_payment').change(function() {
+                // Lấy giá trị được chọn
+                var selectedValue = $(this).val();
+                var orderId = $(this).data('order-id');
+                $.ajax({
+                    type: 'POST',
+                    url: '',
+                    data: {
+                        order_id: orderId,
+                        payment_status: selectedValue
+                    },
+                    success: function(response) {
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
     <script type="text/javascript" src="./script.js"></script>
+    <div class="box"></div>
 </body>
+
 </html>

@@ -1,7 +1,7 @@
 <?php
             include 'connection.php';
             session_start();
-            $admin_id = $_SESSION['admin_id'];
+            $admin_id = $_SESSION['admin_name'];
             if (!isset($admin_id)) {
                 header('location:login.php');
             }
@@ -9,31 +9,23 @@
                 session_destroy();
                 header('location:login.php');
             }
-    
-        if(isset($_GET['delete']))
-        { 
-           $user_delete_id=$_GET['delete'];
-           mysqli_query($conn,"DELETE FROM `users` WHERE id='$user_delete_id'") or die('query failed');
-           header('location:admin_user.php');
-        }
-        if(isset($_POST['update_user_submit']))  {
-           $update_id_user =$_POST['update_id'];
-           $update_name_user=$_POST['update_user'];
-           $update_email_user=$_POST['update_email'];
-           $update_password_user=$_POST['update_passwork'];
-           $update_user_type_user=$_POST['update_user_type'];
-        $user_update_query= mysqli_query($conn,"UPDATE `users` SET `id`='$update_id_user', `name`='$update_name_user',`email`='$update_email_user',`password`='$update_password_user',`user_type`='$update_user_type_user' WHERE id='$update_id_user'") or die('query failed');
-        if($user_update_query)
-        {
-            $messege[] = 'update successfully';
-        }
-        else {
-            $messege [] ='update failed';
-        }
-    }else{
-           
-        }
-?>
+            if (isset($_POST['payment_status'])) {
+                $oderid = $_POST['order_id'];
+                $update_payment = $_POST['payment_status'];
+                mysqli_query($conn, "UPDATE `users` SET user_type='$update_payment' WHERE id='$oderid'") or die('query failed');
+            }
+            if(isset($_GET['delete']))
+            { 
+               $user_delete_id=$_GET['delete'];
+               mysqli_query($conn,"DELETE FROM `users` WHERE id='$user_delete_id'") or die('query failed');
+               header('location:admin_user.php');
+            }
+            ?>
+            <style type="text/css">
+    <?php
+    include 'admin_user.css';
+    ?>
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,88 +34,74 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <!--box icon link-->
      <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
-    <link rel="stylesheet" tyle="text/css" href="style.css">
+   
     
-    <title>admin user</title>
+    <title>Manager order</title>
 </head>
 <body>
-    <?php include 'admin_header.php'; ?>
-    <?php 
-    if(isset($messege))
-    {
-        foreach($messege as $messege)
-        {
-            echo'<div class="message">
-            <span>'.$messege.'</span>
-            <i class="click" onclick="this.parentElement.remove()">aa</i>
-        </div>';
-        }
-    }
-    ?>
-    <div class="line2"></div>
-    <section class="update-users form-contaniner">
+    <?php include 'admin_header.php' ?>
+            <p class="title-fake-hd">Quản lý người dùng</p>
+   <div class="container-form-hoadon">
+    
+    <table class="form-hoadon">
+        
+        <tr>
+            <th class="first-child-hd">Tên</th>
+            <th>Email</th>
+            <th>Mật khẩu</th>
+            <th>Loại người dùng</th>
+            <th class="last-child-hd">Thao tác</th>
+        </tr>
         <?php 
-        if(isset($_GET['edit']))
-        {
-            $user_edit_id=$_GET['edit']  ;
-        $select_users=mysqli_query($conn,"SELECT * FROM `users` WHERE id= '$user_edit_id' ") or die('query failed');
-         if(mysqli_num_rows($select_users)>0){
-            while($fetch_user_edit=mysqli_fetch_assoc($select_users))
-            {
-       ?>
-        <form method="POST" action="" enctype="multipart/form-data">
-               <input type="hidden" name="update_id" value="<?php echo $fetch_user_edit['id'];?>">
-            <div class="input-field">
-                <label >user name</label>
-                <input type="text" name="update_user" value="<?php echo $fetch_user_edit['name'] ?>" >
-            </div>
-            <div class="input-field">
-                <label >email user</label>
-                <input type="text" name="update_email" value="<?php echo $fetch_user_edit['email']?> " >
-            </div>
-            <div class="input-field">
-                <label >passwoord</label>
-               <input type="text" name="update_passwork" value="<?php echo $fetch_user_edit['password']?>">
-            </div>
-            <div class="input-field">
-                <label >user_type</label>
-                <input type="text" name="update_user_type" id=""value="<?php echo $fetch_user_edit['user_type']?>">
-            </div>
-            <input type="submit" name="update_user_submit" value="update" class="edit">
-        </form>
-
-         <?php
-           }}
-        }else{
-
-        }
-
-         ?>
-    </section>
-    <div class="line7"></div>
-    <section class="form-contaniner">
-        <div class="box-container">
-    <?php $select_user=mysqli_query($conn,"SELECT *FROM `users`") or die('query failed');
+  $select_user=mysqli_query($conn,"SELECT *FROM `users`") or die('query failed');
          if(mysqli_num_rows($select_user)>0){
             while($fetch_users=mysqli_fetch_assoc($select_user))
             {   
-                ?>
-                <div class="box">
-                    <h4> <?php echo $fetch_users['name']; ?> </h4>
-                    <p><?php echo $fetch_users['email']; ?></p>
-                    <p><?php echo $fetch_users['password']; ?></p>
-                    <p>user type :<span style="color:<?php if($fetch_users['user_type']=='admin'){echo 'orange';}else{ echo 'blue';} ;?>"><?php echo $fetch_users['user_type']; ?></span></p>
-                    <a href="admin_user.php?delete=<?php echo $fetch_users['id']; ?>" class="delete">delete</a>
-                    <a href="admin_user.php?edit=<?php echo $fetch_users['id']; ?>" class="edit">edit</a>
-                </div>
-           <?php      
+      ?>
+        <tr class="info-hd">
+            <td class="first-child-hd"><?php echo $fetch_users['name']; ?></td>
+            <td class="date-hd"><?php echo $fetch_users['email']; ?></td>
+            <td class="ten-hd-user"><?php echo $fetch_users['password']; ?></td>
+            <td class="diachi-hd"><select name="update_payment" class="update_payment" data-order-id="<?= $fetch_users['id']; ?>" style="color:<?php if($fetch_users['user_type']=='admin'){echo 'orange';}else{ echo 'blue';} ;?>">
+                                <option disabled selected><?php echo $fetch_users['user_type']; ?></option>
+                                <option value="user">user</option>
+                                <option value="admin">admin</option>
+                            </select></td>
+            <td class="last-child-hd"><div class="thaotac"><a href="admin_user.php?delete=<?= $fetch_users['id']; ?>"><i class="fa-solid fa-trash"></i></a></div></td>
+        </tr>
+        <?php      
             }
-         }else{
-
          }
-           ?>
-           </div>
-</section>
+     ?>
+       
+        
+      
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Xử lý sự kiện khi giá trị được chọn thay đổi
+            $('.update_payment').change(function() {
+                // Lấy giá trị được chọn
+                var selectedValue = $(this).val();
+                var orderId = $(this).data('order-id');
+                $.ajax({
+                    type: 'POST',
+                    url: '',
+                    data: {
+                        order_id: orderId,
+                        payment_status: selectedValue
+                    },
+                    success: function(response) {
+                    },
+                    error: function(xhr, status, error) {
+                        console.log(error);
+                    }
+                });
+            });
+        });
+    </script>
     <script type="text/javascript" src="./script.js"></script>
 </body>
 </html>

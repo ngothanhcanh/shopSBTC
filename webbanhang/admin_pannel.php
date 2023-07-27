@@ -31,26 +31,26 @@ if(isset($_POST['logout-btn']))
             <div class="box">
                 <?php
                 $total_pendings = 0;
-                $select_pendings = mysqli_query($conn,"SELECT * FROM `order` WHERE payment_status = 'pending'") or die('query failed');
+                $select_pendings = mysqli_query($conn,"SELECT * FROM `order` WHERE payment_status = 'Đợi Duyệt'") or die('query failed');
                 while($fetch_pending = mysqli_fetch_assoc($select_pendings))
                 {
                     $total_pendings +=  $fetch_pending['total_price'];
                 }
                  ?>
-                 <h3>$ <?php echo $total_pendings; ?>-</h3>
-                 <p>total pendings</p>
+                 <h3> <?php echo $total_pendings; ?> VND</h3>
+                 <p>Tổng tiền đang chờ</p>
             </div>
             <div class="box">
                 <?php
                 $total_completes = 0;
-                $select_completes = mysqli_query($conn,"SELECT * FROM `order` WHERE payment_status = 'complete'") or die('query failed');
+                $select_completes = mysqli_query($conn,"SELECT * FROM `order` WHERE payment_status = 'Đã Giao'") or die('query failed');
                 while($fetch_completes = mysqli_fetch_assoc($select_completes))
                 {
                     $total_completes +=  $fetch_completes['total_price'];
                 }
                  ?>
-                 <h3>$ <?php echo $total_completes; ?>-</h3>
-                 <p>total completes</p>
+                 <h3><?php echo $total_completes; ?> VND</h3>
+                 <p>Tổng tiền hoàn thành</p>
             </div>
             <div class="box">
                 <?php
@@ -58,8 +58,8 @@ if(isset($_POST['logout-btn']))
                 $number_of_orders = mysqli_num_rows($select_orders);
                
                  ?>
-                 <h3> <?php echo $number_of_orders; ?>-</h3>
-                 <p>total place</p>
+                 <h3> <?php echo $number_of_orders; ?></h3>
+                 <p>Tổng Đơn</p>
             </div>
             <div class="box">
                 <?php
@@ -67,8 +67,8 @@ if(isset($_POST['logout-btn']))
                 $number_of_products = mysqli_num_rows($select_products);
                
                  ?>
-                 <h3> <?php echo $number_of_products; ?>-</h3>
-                 <p>product add</p>
+                 <h3> <?php echo $number_of_products; ?></h3>
+                 <p>Tổng Sản Phẩm Đã Thêm</p>
             </div>
             <div class="box">
                 <?php
@@ -76,8 +76,8 @@ if(isset($_POST['logout-btn']))
                 $number_of_users = mysqli_num_rows($select_users);
                
                  ?>
-                 <h3> <?php echo $number_of_users; ?>-</h3>
-                 <p>total normal users</p>
+                 <h3> <?php echo $number_of_users; ?></h3>
+                 <p>Tổng Người dùng</p>
             </div>
             <div class="box">
                 <?php
@@ -85,8 +85,8 @@ if(isset($_POST['logout-btn']))
                 $number_of_admin = mysqli_num_rows($select_admins);
                
                  ?>
-                 <h3> <?php echo $number_of_admin; ?>-</h3>
-                 <p>total normal admin</p>
+                 <h3> <?php echo $number_of_admin; ?></h3>
+                 <p>Tổng Người Quản Lý</p>
             </div>
             <div class="box">
                 <?php
@@ -94,8 +94,8 @@ if(isset($_POST['logout-btn']))
                 $number_of_users = mysqli_num_rows($select_users);
                
                  ?>
-                 <h3> <?php echo $number_of_users; ?>-</h3>
-                 <p>total registed users</p>
+                 <h3> <?php echo $number_of_users; ?></h3>
+                 <p>Tổng Thành Viên</p>
             </div>
             <div class="box">
                 <?php
@@ -103,8 +103,8 @@ if(isset($_POST['logout-btn']))
                 $number_of_message = mysqli_num_rows($select_message);
                
                  ?>
-                 <h3> <?php echo $number_of_message; ?>-</h3>
-                 <p>new message</p>
+                 <h3> <?php echo $number_of_message; ?></h3>
+                 <p>Tổng Tin Nhắn</p>
             </div>
         </div>
     </section>

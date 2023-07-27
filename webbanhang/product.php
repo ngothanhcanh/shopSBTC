@@ -10,11 +10,11 @@ if(isset($_POST['buttonValue']))
         {
             // Tạo dữ liệu HTML cho từng sản phẩm và thêm vào biến $html
             $html .= '<li class="card">';
-            $html .= '<a class="fa-regular fa-heart fav"></a>';
-            $html .= '<div class="img"><img src="image/' . $fetch_all_typeproduct['image'] . '" alt="img" draggable="false"></div>';
+            $html .= '<a class="fa-regular fa-heart fav" id="love2" data-value="'. $fetch_all_typeproduct['id'] . '"></a>';
+            $html .= '<div class="img"><a href="detailproduct.php?pid='.$fetch_all_typeproduct['id'].'"><img src="image/'. $fetch_all_typeproduct['image'] .'" alt="img" draggable="false"></a></div>';
             $html .= '<h2>' . $fetch_all_typeproduct['product_detail'] . '</h2>';
             $html .= '<p>' . $fetch_all_typeproduct['new_price'] . '$</p>';
-            $html .= '<button class="buttonn">';
+            $html .= '<button id="btnnsp" class="buttonn ad-to-card" value="' . $fetch_all_typeproduct['id'] . '">';
             $html .= '<span>Add to cart</span>';
             $html .= '<div class="cart">';
             $html .= '<svg viewBox="0 0 36 26">';
