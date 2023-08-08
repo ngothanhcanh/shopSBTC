@@ -1,4 +1,4 @@
-<?php
+<?php $page='about';
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -34,7 +34,7 @@ if (isset($_POST['logout-btn'])) {
             <div class="contenttt">
               <div class="img"><img src="image/duongthang.webp"></div>
               <div class="cardContent">
-                <h3>Duong Thang<br><span>Web(Frond-End) & App Developer</span></h3>
+                <h3>Duong Thang<br><span>Web(Front-End) & App Developer</span></h3>
               </div>
             </div>
             <ul class="sci">
@@ -70,7 +70,7 @@ if (isset($_POST['logout-btn'])) {
           </div>
           <div class="carddd">
             <div class="contenttt">
-              <div class="img"><img src="https://scontent.fsgn8-2.fna.fbcdn.net/v/t39.30808-6/274354855_1319772481830568_5061542277936862532_n.jpg?_nc_cat=100&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=c0t-ZwHr1u8AX_sh1IV&_nc_ht=scontent.fsgn8-2.fna&oh=00_AfAs2-uypPI923ovPgsUXUocEpuvx8ZctX1p2TVq3Sr07Q&oe=64C0FE94"></div>
+              <div class="img"><img src="image/thanhcanh.jpg"></div>
               <div class="cardContent">
                 <h3>Ngo Thanh Canh<br><span>WEB Developer (Back-End)</span></h3>
               </div>
@@ -88,7 +88,33 @@ if (isset($_POST['logout-btn'])) {
           </ul>
           </div>
         </div>
-        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        // Hàm thực hiện cập nhật lại dữ liệu trong header.php
+        function updateHeaderData() {
+            $.ajax({
+                url: 'http://localhost/shop/webbanhang/update_header.php', // File PHP xử lý yêu cầu Ajax để lấy dữ liệu mới
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    // Cập nhật dữ liệu mới vào các phần tử trong header.php
+                    $('#wishlist-count').text(data.wishlist_count);
+                    $('#cart-count').text(data.cart_count);
+                },
+                error: function(xhr, status, error) {
+                    console.log('Lỗi khi gửi yêu cầu AJAX:', error);
+                }
+            });
+        }
+
+        // Cập nhật lại dữ liệu sau khoảng thời gian 5 giây
+        setInterval(function() {
+            updateHeaderData();
+        }, 1000);
+
+        // Gọi hàm cập nhật dữ liệu khi trang được load
+        updateHeaderData();
+        </script>
     <style>
          :root {
   --color-one: #990033;

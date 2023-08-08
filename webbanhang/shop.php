@@ -1,4 +1,4 @@
-<?php
+<?php $page='shop';
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -30,13 +30,13 @@ if (isset($_POST['pid'])) {
     $cart_quantity = 1;
     $select_cart = mysqli_query($conn, "SELECT * FROM `cart` WHERE pid='$cart_id' AND use_id ='$user_id'") or die('query failed');
     if (mysqli_num_rows($select_cart) > 0) {
-        $response['messagea'] = 'Sản phẩm đã có trong giỏ hàng';
+        $responsee['message'] = 'Sản phẩm đã có trong giỏ hàng';
     } else {
-        mysqli_query($conn, "INSERT INTO `cart`( `use_id`, `pid`,`quantity`) VALUES ('$user_id','$cart_pid','$cart_quantity')") or die('query failed');
+        mysqli_query($conn, "INSERT INTO `cart`( `use_id`, `pid`,`quantity`) VALUES ('$user_id','$cart_id','$cart_quantity')") or die('query failed');
        
     }
     header('Content-Type: application/json');
-    echo json_encode($response);
+    echo json_encode($responsee);
     exit();
 }
 $select_sp = mysqli_query($conn, "SELECT * FROM products");
@@ -67,7 +67,7 @@ $select_rating = mysqli_query($conn, "SELECT rating FROM message");
         <div class="nav_left">
             <!-- Loại sản phẩm -->
             <div class="container_category">
-                <p id="title_category">Category</p>
+                <p id="title_category"> Loại sản phẩm</p>
                 <div class="wrapper_shop">
                     <input id="btnBox" type="checkbox" readonly />
                     <ul>
@@ -172,7 +172,7 @@ $select_rating = mysqli_query($conn, "SELECT rating FROM message");
                                         while ($fetch_rating = mysqli_fetch_assoc($select_rating)) {
                                             $count += $fetch_rating['rating'];
                                         }
-                                        $rating1=(($count/10)/mysqli_num_rows($select_rating))*0.5;
+                                        $rating1=number_format((($count/10)/mysqli_num_rows($select_rating))*0.5,1);
                                       ?>
                                         <p id="point"><?=$rating1 ?></p>
                                       <?php 
@@ -245,7 +245,7 @@ $select_rating = mysqli_query($conn, "SELECT rating FROM message");
                                     <div class="bottom_card_shop">
                                         <div class="bottom_top_card_shop">
                                             <h2><?= $fetch_all_typeproduct['name'] ?> </h2>
-                                            <p><?= $fetch_all_typeproduct['new_price'] ?> VND</p>
+                                            <p><?= number_format($fetch_all_typeproduct['new_price']) ?> VND</p>
                                         </div>
                                         <div class="main_button_shop">
                                             <div class="main_desc_shop">
@@ -425,6 +425,7 @@ $select_rating = mysqli_query($conn, "SELECT rating FROM message");
         $(document).on('click', '#btnnsp', function() {
             var btnval = $(this).val();
             // Tạo object data để gửi qua Ajax request
+            
             var data = {
                 pid: btnval
             };
@@ -433,10 +434,10 @@ $select_rating = mysqli_query($conn, "SELECT rating FROM message");
                 type: 'POST',
                 dataType: 'json',
                 data: data,
-                success: function(response) {
-                    if(response)
+                success: function(responsee) {
+                    if(responsee)
                    {
-                    swal("Error!", response.messagea, "error")
+                    swal("Error!", responsee.message, "error")
                    }
                     // setTimeout(reloadPage, 4000);
 

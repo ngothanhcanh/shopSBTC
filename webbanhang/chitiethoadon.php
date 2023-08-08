@@ -1,4 +1,4 @@
-<?php
+<?php $page='chitiethoadon';
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -27,6 +27,11 @@ if (isset($_POST['logout-btn'])) {
 </head>
 
 <body>
+  <style>
+       header {
+    background: #455993;
+    }
+  </style>
     <?php include 'header.php';  ?>
 
     <div class="page-container">
@@ -46,6 +51,8 @@ if (isset($_POST['logout-btn'])) {
       
       <table class="invoice-info-container">
       <?php 
+      $select_user=mysqli_query($conn,"SELECT email From users Where id='$user_id'");
+      $fetch_email_user=mysqli_fetch_assoc($select_user);
       $idoder=$_GET['id'];
       $select_hoadon=mysqli_query($conn,"SELECT * FROM `order` WHERE id='$idoder'");
       $fetch_hoadon = mysqli_fetch_assoc($select_hoadon);
@@ -76,7 +83,7 @@ if (isset($_POST['logout-btn'])) {
             Số hóa đơn: <strong><?=101+$idoder ?></strong>
           </td>
           <td>
-            duongthangpt3011@gmail.com
+           <?=$fetch_email_user['email'] ?>
           </td>
         </tr>
     
@@ -110,7 +117,7 @@ if (isset($_POST['logout-btn'])) {
               ?>
           <tr>
             <td><?=$fetch_order_detail['quantity'] ?></td>
-            <td class="img_cthd"><img src="image/6213932.jpg" style="height:35px" alt=""></td>
+            <td class="img_cthd"><img src="image/<?=$fetcch_product['image'] ?>" style="height:35px" alt=""></td>
             <td><?= $fetcch_product['product_detail'] ?></td>
             <td class="right-hd"><?=$fetch_order_detail['price'] ?> VND</td>
             <td class="bold"><?=$total ?> VND</td>
@@ -135,7 +142,7 @@ if (isset($_POST['logout-btn'])) {
           <tr>
            <td></td>
           <td></td>
-            <td class="large total"><?=$totalsum ?></td>
+            <td class="large total"><?=$totalsum ?> VND</td>
           </tr>
         </tbody>
       </table>

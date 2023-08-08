@@ -16,7 +16,7 @@ if(isset($_POST['buttonValue']))
             $html.='<div class="bottom_card_shop">';
             $html.='<div class="bottom_top_card_shop">';
             $html.='<h2>'.$fetch_product_type['name'].' </h2>';
-            $html.='<p>'. $fetch_product_type['new_price'] .' VND</p></div>';
+            $html.='<p>'. number_format($fetch_product_type['new_price']) .' VND</p></div>';
             $html.='<div class="main_button_shop">';
             $html.='<div class="main_desc_shop">';
             $html.='<h4>'. $fetch_product_type['product_detail'].'</h4></div>';
@@ -46,7 +46,7 @@ if(isset($_POST['buttonValue']))
             $html.='<div class="bottom_card_shop">';
             $html.='<div class="bottom_top_card_shop">';
             $html.='<h2>'.$fetch_product_type['name'].' </h2>';
-            $html.='<p>'. $fetch_product_type['new_price'] .' VND</p></div>';
+            $html.='<p>'. number_format($fetch_product_type['new_price']) .' VND</p></div>';
             $html.='<div class="main_button_shop">';
             $html.='<div class="main_desc_shop">';
             $html.='<h4>'. $fetch_product_type['product_detail'].'</h4></div>';
@@ -73,7 +73,7 @@ if(isset($_POST['buttonValue']))
             $html.='<div class="bottom_card_shop">';
             $html.='<div class="bottom_top_card_shop">';
             $html.='<h2>'.$fetch_product_type['name'].' </h2>';
-            $html.='<p>'. $fetch_product_type['new_price'] .' VND</p></div>';
+            $html.='<p>'. number_format($fetch_product_type['new_price']) .' VND</p></div>';
             $html.='<div class="main_button_shop">';
             $html.='<div class="main_desc_shop">';
             $html.='<h4>'. $fetch_product_type['product_detail'].'</h4></div>';
@@ -100,7 +100,7 @@ if(isset($_POST['buttonValue']))
             $html.='<div class="bottom_card_shop">';
             $html.='<div class="bottom_top_card_shop">';
             $html.='<h2>'.$fetch_product_type['name'].' </h2>';
-            $html.='<p>'. $fetch_product_type['new_price'] .' VND</p></div>';
+            $html.='<p>'. number_format($fetch_product_type['new_price']) .' VND</p></div>';
             $html.='<div class="main_button_shop">';
             $html.='<div class="main_desc_shop">';
             $html.='<h4>'. $fetch_product_type['product_detail'].'</h4></div>';

@@ -1,4 +1,4 @@
-<?php
+<?php $page='home';
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -33,7 +33,7 @@ if (isset($_POST['pid'])) {
         $response['messagea'] = 'Sản phẩm đã có trong giỏ hàng';
     } else {
         mysqli_query($conn, "INSERT INTO `cart`( `use_id`, `pid`,`quantity`) VALUES ('$user_id','$cart_id','$cart_quantity')") or die('query failed');
-
+        $response['message'] = 'thanh cong';
     }
     header('Content-Type: application/json');
     echo json_encode($response);
@@ -87,9 +87,9 @@ if (isset($_POST['pid'])) {
             </div>
         </div>
         <div class="buttons">
-            <button id="prev">
+            <button id="prev"><
             </button>
-            <button id="next"></button>
+            <button id="next">></button>
         </div>
         <ul class="dots">
             <li class="active"></li>
@@ -135,14 +135,16 @@ if (isset($_POST['pid'])) {
                 <?php $select_all_typeproduct = mysqli_query($conn, "SELECT * From `products` WHERE method ='sale'");
                 if (mysqli_num_rows($select_all_typeproduct) > 0) {
                     while ($fetch_all_typeproduct = mysqli_fetch_assoc($select_all_typeproduct)) {
+                        $formatted_price = number_format($fetch_all_typeproduct['new_price']);
+                        $formatted_oldprice = number_format($fetch_all_typeproduct['old_price']);
                 ?>
                         <li class="card">
                             <a class="fa-regular fa-heart fav" id="love1" data-value="<?= $fetch_all_typeproduct['id'] ?>"></a>
                             <div class="img"> <a href="detailproduct.php?pid=<?=$fetch_all_typeproduct['id']?>"><img src="image/<?= $fetch_all_typeproduct['image'] ?>" alt="img" draggable="false"></a></div>
                             <h2><?= $fetch_all_typeproduct['name'] ?></h2>
                             <div class="main_price">
-                                <span class="price_sale"><?= $fetch_all_typeproduct['new_price'] ?>$</span>
-                                <span class="price_goc"><?= $fetch_all_typeproduct['old_price'] ?>$</span>
+                                <span class="price_sale"><?= $formatted_price ?> VND</span>
+                                <span class="price_goc"><?=  $formatted_oldprice ?> VND</span>
                             </div>
                             <button id='btnsale' class="buttonn add-to-card" value="<?= $fetch_all_typeproduct['id'] ?>">
                                 <span>Add to cart</span>
@@ -183,14 +185,18 @@ if (isset($_POST['pid'])) {
         </div>
         <div class="content_box">
             <div id="contenta" class="content active_product">
-            <?php $select_all_typeproduct = mysqli_query($conn, "SELECT * From `products` Where type_product='quần áo'");
+            <?php $select_all_typeproduct = mysqli_query($conn, "SELECT * From `products` Where type_product='Điện thoại'");
                 if (mysqli_num_rows($select_all_typeproduct) > 0) {
-                    while ($fetch_all_typeproduct = mysqli_fetch_assoc($select_all_typeproduct)) { ?>
+                    while ($fetch_all_typeproduct = mysqli_fetch_assoc($select_all_typeproduct)) {
+                        $formatted_price = number_format($fetch_all_typeproduct['new_price']);
+                        ?>
                         <li class="card">
                             <a class="fa-regular fa-heart fav" id="love2" data-value="<?= $fetch_all_typeproduct['id'] ?>"></a>
+                            
                             <div class="img"> <a href="detailproduct.php?pid=<?=$fetch_all_typeproduct['id']?>"><img src="image/<?= $fetch_all_typeproduct['image'] ?>" alt="img" draggable="false"></a></div>
-                            <h2><?= $fetch_all_typeproduct['product_detail'] ?></h2>
-                            <p><?= $fetch_all_typeproduct['new_price'] ?>$</p>
+                 
+                            <h2><?= $fetch_all_typeproduct['name'] ?></h2>
+                            <p><?= $formatted_price ?> VND</p>
                             <button id="btnnsp" class="buttonn add-to-card" value="<?= $fetch_all_typeproduct['id'] ?>">
                                 <span>Add to cart</span>
                                 <div class="cart">
@@ -200,6 +206,7 @@ if (isset($_POST['pid'])) {
                                     </svg>
                                 </div>
                             </button>
+                         
                         </li>
 
                 <?php
@@ -398,8 +405,6 @@ if (isset($_POST['pid'])) {
                 dataType: 'html',
                 data: data,
                 success: function(response) {
-                    console.log(data);
-                    console.log(response); // Xem dữ liệu phản hồi
                     $('#contenta').empty();
                     $('#contenta').html(response);
                     document.querySelectorAll('.ad-to-card').forEach(button => button.addEventListener('click', e => {
@@ -411,14 +416,12 @@ if (isset($_POST['pid'])) {
                     }));
                 },
                 error: function(xhr, status, error) {
-                    console.log(xhr.responseText); // Xem dữ liệu phản hồi từ server khi có lỗi
                     console.log('Lỗi khi gửi yêu cầu AJAX:', error);
                 }
             })
         });
         $(document).on('click', '#btnsale ,#btnnsp', function() {
             var btnval = $(this).val();
-            // Tạo object data để gửi qua Ajax request
             var data = {
                 pid: btnval
             };
@@ -434,14 +437,12 @@ if (isset($_POST['pid'])) {
                    }
                 },
                 error: function(xhr, status, error) {
-                    console.log(xhr.responseText); // Xem dữ liệu phản hồi từ server khi có lỗi
                     console.log('Lỗi khi gửi yêu cầu AJAX:', error);
                 }
             })
         });
         $(document).on('click', '#love1 ,#love2', function() {
             var lovevalue = $(this).data('value');
-            // Tạo object data để gửi qua Ajax request
             var data = {
                 lovevalue: lovevalue
             };
@@ -457,8 +458,6 @@ if (isset($_POST['pid'])) {
                    }
                 },
                 error: function(xhr, status, error) {
-                    console.log(data);
-                    console.log(xhr.responseText);
                     console.log('Lỗi khi gửi yêu cầu AJAX:', error);
                 }
             })
@@ -613,6 +612,8 @@ if (isset($_POST['pid'])) {
             e.preventDefault();
         }));
     </script>
+
+    
     <?php include 'footer.php' ?>
 </body>
 

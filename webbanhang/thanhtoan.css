@@ -23,7 +23,11 @@
     --px:60px;
     --radius:5px;
 }
-
+.img-box img{
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
 *,*::before , *::after{
     margin: 0;
     padding: 0;
@@ -127,6 +131,9 @@ input::-webkit-outer-spin-button{
     justify-content: center;
     gap: 30px;
     margin-bottom: 40px;
+}
+.method span{
+    white-space: nowrap;
 }
 .payment-method .method{
     border: 1px solid var(--quick-silver);

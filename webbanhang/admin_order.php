@@ -1,4 +1,4 @@
-<?php
+<?php $page='adminorder';
 include 'connection.php';
 session_start();
 $admin_id = $_SESSION['admin_name'];
@@ -25,6 +25,7 @@ if (isset($_POST['payment_status'])) {
 <style type="text/css">
     <?php
     include 'admin_order.css';
+    include 'style.css';
     ?>
 </style>
 <!DOCTYPE html>
@@ -69,7 +70,7 @@ if (isset($_POST['payment_status'])) {
                         <td class="date-hd"><span><?php echo $fetch_orders['name']; ?></td>
                         <!-- <td class="ten-hd-user">Dương Thắngdfhgdfhdfghfghfghfghgfhghghfghfghfhfghfghfghfhfghfg</td> -->
                         <td class="diachi-hd"><?php echo $fetch_orders['placed_on']; ?><span></td>
-                        <td class="diachi-hd"><?php echo $fetch_orders['total_price']; ?></td>
+                        <td class="diachi-hd"><?= number_format($fetch_orders['total_price'])  ?> VND</td>
                         <td><?php echo $fetch_orders['adress']; ?></td>
                         <td>
                             <select name="update_payment" class="update_payment" data-order-id="<?php echo $fetch_orders['id']; ?>">

@@ -1,4 +1,4 @@
-<?php
+<?php $page='lienhe';
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -16,7 +16,7 @@ if(isset($_POST['firstName']))
     $email=$_POST['email'];
     $rating=$_POST['rating']*10;
     $message=$_POST['message'];
-    if($rating>=10 && $rating<=100 && $phone>=1000000000 && $phone<=9999999999)
+    if($rating>=10 && $rating<=100 &&  $phone<=9999999999)
     {
         mysqli_query($conn,"INSERT INTO `message`( `use_id`, `name`, `email`, `number`, `message`, `rating`) VALUES ('$user_id','$firstName','$email','$phone','$message','$rating')");
     }
@@ -60,7 +60,7 @@ if(isset($_POST['firstName']))
             </div>
 
             <div class="input-group">
-                <input type="number" name="e-mail" id="phone" min="1000000000" max="9999999999"  placeholder="Số điện thoại">
+                <input type="number" name="e-mail" id="phone" max="9999999999"  placeholder="Số điện thoại">
                 <label for="e-mail">Số điện thoại</label>
             </div>
 

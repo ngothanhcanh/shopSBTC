@@ -1,4 +1,4 @@
-<?php
+<?php $page='detailproduct';
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -57,9 +57,9 @@ if (isset($_POST['btnnow'])) {
 
 <body>
     <style>
-        .header {
-            background-color: black;
-        }
+         header {
+    background: #455993;
+    }
     </style>
     <?php include 'header.php';  ?>
     <?php if(isset($_GET['pid'])){
@@ -72,13 +72,7 @@ if (isset($_POST['btnnow'])) {
        
     <div class="container_detail_product">
         <div class="container_image_product">
-            <div class="main_link">
-                <span>Trang chủ</span>
-                <i class="fa-solid fa-chevron-right"></i>
-                <span>Sản phẩm</span>
-                <i class="fa-solid fa-chevron-right"></i>
-                <span class="select_product">Áo</span>
-            </div>
+           
             <div class="main_image_detail_product">
                 <img src="image/<?=$fetch_pid['image']?>" alt="">
             </div>
@@ -106,7 +100,7 @@ if (isset($_POST['btnnow'])) {
                 </div>
             </div>
             <div class="main_manipulate">
-                <button id="btnspnow" class="button_buy_now"><span>Buy Now</span></button>
+                <button id="btnspnow" class="button_buy_now" value="<?= $fetch_pid['id'] ?>"><span>Buy Now</span></button>
                 <button id="btnnsp" class="button_shop" value="<?= $fetch_pid['id'] ?>">
                     <span>Add to Cart</span>
                     <div class="cart">
@@ -197,7 +191,7 @@ if (isset($_POST['btnnow'])) {
             success:function(response) {
                 if(response)
                    {
-                   window.location.href = "cart.php";
+                   window.location.href = "giohang.php";
                    }
             },
             error: function(xhr, status, error) {

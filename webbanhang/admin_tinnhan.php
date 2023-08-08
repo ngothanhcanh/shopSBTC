@@ -1,4 +1,4 @@
-<?php
+<?php $page='admintinnhan';
 include 'connection.php';
 session_start();
 $admin_id = $_SESSION['admin_id'];
@@ -20,6 +20,7 @@ if (isset($_GET['delete'])) {
 <style type="text/css">
     <?php
     include 'admin_tinnhan.css';
+    include 'style.css';
     ?>
 </style>
 <!DOCTYPE html>
@@ -62,7 +63,7 @@ if (isset($_GET['delete'])) {
                         <td class="ten-hd-user"><?php echo $fetch_message['message']; ?></td>
                         <td class="ten-hd-user"><?= $fetch_message['rating']/10; ?></td>
                         <td class="last-child-hd">
-                            <div class="thaotac"><a href="admin_tinnhan.php?delete=<?php echo $fetch_message['id']; ?>;" class="delete" onclick="return confirm('delete this message');"><i class="fa-solid fa-trash"></i></a></div>
+                            <div class="thaotac"><a href="admin_tinnhan.php?delete=<?php echo $fetch_message['id']; ?>;" class="deletee" onclick="return confirm('delete this message');"><i class="fa-solid fa-trash"></i></a></div>
                         </td>
                     </tr>
 

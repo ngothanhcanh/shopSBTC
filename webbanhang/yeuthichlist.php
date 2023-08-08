@@ -1,4 +1,4 @@
-<?php
+<?php $page='yeuthich';
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -21,7 +21,13 @@ if (isset($_POST['products'])) {
     foreach ($products as $product) {
         $pid = $product['productId'];
         $quantity = $product['quantity'];
-        mysqli_query($conn, "INSERT INTO `cart`(`use_id`, `pid`, `quantity`) VALUES ('$user_id','$pid','$quantity')");
+        $select_pid_cart=mysqli_query($conn,"SELECT * FROM `cart` WHERE pid='$pid' AND use_id='$user_id' ");
+        if(mysqli_num_rows($select_pid_cart)>0)
+        {
+         
+        }else{
+            mysqli_query($conn, "INSERT INTO `cart`(`use_id`, `pid`, `quantity`) VALUES ('$user_id','$pid','$quantity')");
+        }
     }
     mysqli_query($conn,"DELETE FROM `wishlist` WHERE use_id='$user_id'");
     // Trả về dữ liệu JSON để xác nhận gửi thành công
@@ -46,6 +52,11 @@ if (isset($_POST['products'])) {
 </head>
 
 <body>
+<style>
+     header {
+    background: #455993;
+    }
+   </style>
     <?php include 'header.php';  ?>
 
     <main class="container">

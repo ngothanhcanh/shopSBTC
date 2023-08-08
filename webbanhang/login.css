@@ -8,13 +8,26 @@
 a {
     margin-left: 9px;
 }
+#loading-gif{
+    opacity: 0.7;
+    z-index: -2;
+    position: absolute; /* Đổi từ relative thành absolute */
+    top: 52%; /* Dịch chuyển container lên phía trên 50% */
+    left: 50%; /* Dịch chuyển container sang trái 50% */
+    transform: translate(-50%, -47%); /* Điều chỉnh vị trí để căn giữa chính xác */
+    width: 76%;
+    height: 64%;
+    background: #1c1c1c;
+    border-radius: 8px;
+    overflow: hidden;
+}
 .background {
     position: absolute; /* Đổi từ relative thành absolute */
     top: 52%; /* Dịch chuyển container lên phía trên 50% */
     left: 50%; /* Dịch chuyển container sang trái 50% */
-    transform: translate(-50%, -50%); /* Điều chỉnh vị trí để căn giữa chính xác */
+    transform: translate(-50%, -47%); /* Điều chỉnh vị trí để căn giữa chính xác */
     width: 76%;
-    height: 59%;
+    height: 64%;
     background: #1c1c1c;
     border-radius: 8px;
     overflow: hidden;
@@ -45,6 +58,10 @@ a {
     animation: animate 6s linear infinite;
     animation-delay: -3s;
 }
+.fa-github, .fa-facebook, .fa-instagram, .fa-tiktok{
+    color: white;
+}
+
 @keyframes animate {
     0% {
         transform: rotate(0deg);
@@ -67,8 +84,8 @@ a {
     top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
-    width: 75%;
-    height: 550px;
+    width: 74%;
+    height: 60%;
     background: url('image/backgroundlogin.jpg') no-repeat;
     background-size: cover;
     background-position: center;
@@ -142,6 +159,7 @@ a {
     transform: translateX(600px);
     transition-delay: 0s;
 }
+
 .logreg-box .form-box.register{
     transform: translateX(600px);
     transition: transform .6s ease;
@@ -152,7 +170,15 @@ a {
     transition-delay: .7s;
 }
 
-
+.logreg-box .form-box.forgotpassword{
+    transform: translateX(600px);
+    transition: transform .4s ease;
+    transition-delay: 0s;
+}
+.logreg-box.activee .form-box.forgotpassword{
+    transform: translateX(0);
+    transition-delay: .5s;
+}
 
 .form-box h2{
     font-size: 32px;
@@ -166,6 +192,7 @@ a {
     margin: 30px 0;
 }
 .input-box input{
+    color: white;
     width: 100%;
     height: 100%;
     background: transparent;

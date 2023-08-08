@@ -23,6 +23,11 @@
     --px:60px;
     --radius:5px;
 }
+.img-box img{
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
 
 *,*::before , *::after{
     margin: 0;

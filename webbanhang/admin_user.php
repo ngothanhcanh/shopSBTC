@@ -1,4 +1,4 @@
-<?php
+<?php $page='adminuser';
             include 'connection.php';
             session_start();
             $admin_id = $_SESSION['admin_name'];
@@ -24,6 +24,7 @@
             <style type="text/css">
     <?php
     include 'admin_user.css';
+    include 'style.css';
     ?>
 </style>
 <!DOCTYPE html>

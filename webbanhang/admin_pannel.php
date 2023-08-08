@@ -1,4 +1,4 @@
-<?php 
+<?php $page='adminpannel';
 include 'connection.php';
 session_start();
 $admin_id = $_SESSION['admin_name'];
@@ -11,7 +11,13 @@ if(isset($_POST['logout-btn']))
     session_destroy();
     header('location:login.php');
 }
+
 ?>
+<style type="text/css">
+    <?php
+    include 'style.css';
+    ?>
+</style>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,9 +31,9 @@ if(isset($_POST['logout-btn']))
 </head>
 <body>
     <?php include 'admin_header.php'; ?>
-    <div class="line4"></div>
-    <section class="dashboard">
-        <div class="box-container">
+   
+    <section class="dashboardd">
+        <div class="box-containerr">
             <div class="box">
                 <?php
                 $total_pendings = 0;
@@ -37,7 +43,7 @@ if(isset($_POST['logout-btn']))
                     $total_pendings +=  $fetch_pending['total_price'];
                 }
                  ?>
-                 <h3> <?php echo $total_pendings; ?> VND</h3>
+                 <h3> <?= number_format($total_pendings) ?> VND</h3>
                  <p>Tổng tiền đang chờ</p>
             </div>
             <div class="box">
@@ -49,7 +55,7 @@ if(isset($_POST['logout-btn']))
                     $total_completes +=  $fetch_completes['total_price'];
                 }
                  ?>
-                 <h3><?php echo $total_completes; ?> VND</h3>
+                 <h3><?=number_format($total_completes) ?> VND</h3>
                  <p>Tổng tiền hoàn thành</p>
             </div>
             <div class="box">

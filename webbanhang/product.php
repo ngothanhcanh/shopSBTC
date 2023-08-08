@@ -8,12 +8,13 @@ if(isset($_POST['buttonValue']))
         $html = ''; // Biến chứa dữ liệu HTML
         while($fetch_all_typeproduct = mysqli_fetch_assoc($select_all_typeproduct))
         {
+            $format_price=number_format($fetch_all_typeproduct['new_price']);
             // Tạo dữ liệu HTML cho từng sản phẩm và thêm vào biến $html
             $html .= '<li class="card">';
             $html .= '<a class="fa-regular fa-heart fav" id="love2" data-value="'. $fetch_all_typeproduct['id'] . '"></a>';
             $html .= '<div class="img"><a href="detailproduct.php?pid='.$fetch_all_typeproduct['id'].'"><img src="image/'. $fetch_all_typeproduct['image'] .'" alt="img" draggable="false"></a></div>';
-            $html .= '<h2>' . $fetch_all_typeproduct['product_detail'] . '</h2>';
-            $html .= '<p>' . $fetch_all_typeproduct['new_price'] . '$</p>';
+            $html .= '<h2>' . $fetch_all_typeproduct['name'] . '</h2>';
+            $html .= '<p>' . $format_price  . ' VND</p>';
             $html .= '<button id="btnnsp" class="buttonn ad-to-card" value="' . $fetch_all_typeproduct['id'] . '">';
             $html .= '<span>Add to cart</span>';
             $html .= '<div class="cart">';

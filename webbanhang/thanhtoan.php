@@ -1,4 +1,4 @@
-<?php
+<?php 
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -17,11 +17,13 @@ if (isset($_POST['products'])) {
     $diachi = $_POST['diachi'];
     $sdt = $_POST['sdt'];
     $tongtien = $_POST['payAmount'];
+    $numberString = str_replace('.', '', $tongtien);
+    $number = intval($numberString);
     $place_on = date('d-M-Y');
     $method = 'thanh toán khi nhận hàng';
     $email = $fetch_user['email'];
 
-    mysqli_query($conn, "INSERT INTO `order`(`use_id`, `name`, `number`, `email`, `method`, `adress`, `total_price`, `placed_on`) VALUES ('$user_id','$hoten','$sdt','$email','$method','$diachi','$tongtien','$place_on')");
+    mysqli_query($conn, "INSERT INTO `order`(`use_id`, `name`, `number`, `email`, `method`, `adress`, `total_price`, `placed_on`) VALUES ('$user_id','$hoten','$sdt','$email','$method','$diachi','$number','$place_on')");
     $order_id = mysqli_insert_id($conn);
 
     if ($order_id) {
@@ -48,6 +50,7 @@ if (isset($_POST['btnxoa'])) {
     echo json_encode(['success' => true]);
     exit(); // Make sure to exit here to prevent any other output.
 }
+$page='thanhtoan';
 ?>
 <style type="text/css">
     <?php
@@ -61,7 +64,7 @@ if (isset($_POST['btnxoa'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Thanh toán</title>
 </head>
 
@@ -218,7 +221,6 @@ if (isset($_POST['btnxoa'])) {
             var hoten = document.getElementById("cardholder-name").value;
             var diachi = document.getElementById("cardholder-diachi").value;
             var sdt = document.getElementById("card-number").value;
-
             $('.product-card').each(function() {
                 let productId = $(this).find('input[type="hidden"]').val();
                 let quantity = $(this).find('.quantity').text();
@@ -229,6 +231,8 @@ if (isset($_POST['btnxoa'])) {
                     price: price
                 });
             });
+           
+              
             $.ajax({
                 url: window.location.href,
                 type: 'POST',

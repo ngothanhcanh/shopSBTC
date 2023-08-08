@@ -1,4 +1,4 @@
-<?php
+<?php $page='giohang';
 include 'connection.php';
 session_start();
 $user_id = $_SESSION['user_id'];
@@ -46,6 +46,11 @@ if (isset($_POST['products'])) {
 </head>
 
 <body>
+    <style>
+         header {
+    background: #455993;
+    }
+    </style>
     <?php include 'header.php';  ?>
 
     <main class="container">
